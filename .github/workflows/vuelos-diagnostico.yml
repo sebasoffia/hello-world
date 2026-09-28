@@ -1,0 +1,21 @@
+name: Diagnóstico búsqueda de vuelos
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/vuelos-buenos-aires-santiago-z7rrto]
+    paths:
+      - "vuelos/diagnostico.py"
+      - ".github/workflows/vuelos-diagnostico.yml"
+
+jobs:
+  diagnostico:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r vuelos/requirements.txt
+      - run: python vuelos/diagnostico.py

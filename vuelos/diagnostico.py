@@ -1,29 +1,26 @@
-"""Diagnóstico: muestra la estructura cruda que devuelve Google Flights."""
-import json
-import re
-
-from fast_flights import FlightQuery, Passengers, create_query, fetch_flights_html
-from selectolax.lexbor import LexborHTMLParser
+"""Diagnóstico: abre Google Flights con un navegador real y muestra qué se ve."""
+from fast_flights import FlightQuery, Passengers, create_query
+from playwright.sync_api import sync_playwright
 
 q = create_query(
     flights=[FlightQuery(date="2026-12-10", from_airport="AEP", to_airport="SCL")],
-    trip="one-way", currency="USD", language="es", max_stops=0,
-    passengers=Passengers(adults=2, children=1),
+    trip="one-way", currency="USD", language="en", max_stops=0,
+    passengers=Passengers(adults=2, children=1), carry_on_bags=1,
 )
-html = fetch_flights_html(q)
-doc = LexborHTMLParser(html)
-print("scripts ds:", [s.attributes.get("class") for s in doc.css("script") if (s.attributes.get("class") or "").startswith("ds:")])
-datos = doc.css_first(r"script.ds\:1").text().split("data:", 1)[1].rsplit(",", 1)[0]
-payload = json.loads(datos)
-print("largo payload:", len(payload))
-for i, sec in enumerate(payload):
-    print(f"--- payload[{i}] ({type(sec).__name__}):", json.dumps(sec, ensure_ascii=False)[:400])
-for seccion in (2, 3):
-    bloque = payload[seccion]
-    for n, k in enumerate((bloque[0] if bloque and bloque[0] else [])[:3]):
-        print(f"\n### seccion {seccion} vuelo {n}: len(k)={len(k)}")
-        print("k[0][:2]:", json.dumps(k[0][:2], ensure_ascii=False))
-        for j, parte in enumerate(k[1:], 1):
-            print(f"k[{j}]:", json.dumps(parte, ensure_ascii=False)[:300])
-print("\nmontos con US$ en html:", re.findall(r"US\$\s?[\d.,]+", html)[:20])
-print("aria-label con precio:", re.findall(r'aria-label="[^"]{0,120}(?:dólares|USD)[^"]{0,80}"', html)[:5])
+print("URL:", q.url())
+with sync_playwright() as p:
+    nav = p.chromium.launch()
+    pagina = nav.new_page(locale="en-US")
+    pagina.goto(q.url(), wait_until="domcontentloaded")
+    try:
+        pagina.wait_for_selector('[aria-label*="US dollars"]', timeout=30000)
+    except Exception as e:
+        print("no aparecieron precios:", e)
+    pagina.wait_for_timeout(3000)
+    print("título:", pagina.title())
+    etiquetas = pagina.eval_on_selector_all('[aria-label*="US dollars"]', "els => els.map(e => e.getAttribute('aria-label'))")
+    print("etiquetas con precio:", len(etiquetas))
+    for t in etiquetas[:12]:
+        print("  -", t)
+    pagina.screenshot(path="vuelos/diagnostico.png", full_page=True)
+    nav.close()

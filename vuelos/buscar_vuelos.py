@@ -62,7 +62,8 @@ def extraer_vuelos(etiquetas: list[str]) -> list[tuple[str, str, str, int]]:
         m = ETIQUETA.search(etiqueta)
         if not m:
             continue
-        precio, aerolinea = int(m.group(1).replace(",", "")), m.group(2)
+        precio = int(m.group(1).replace(",", ""))
+        aerolinea = m.group(2).split(". Operated by")[0]
         salida, llegada = _hora_24(m.group(3)), _hora_24(m.group(4))
         if (aerolinea, salida) not in vistos:
             vistos.add((aerolinea, salida))
@@ -163,11 +164,15 @@ def mejores_combinaciones(vuelos: list[Vuelo], n: int) -> list[tuple[Vuelo, Vuel
     estadia = CONFIG["estadia_dias"]
     combos = []
     for i in idas.values():
-        for v in vueltas.values():
-            dias = (date.fromisoformat(v.fecha_vuelo) - date.fromisoformat(i.fecha_vuelo)).days
-            if estadia["min"] <= dias <= estadia["max"]:
-                combos.append((i, v, i.precio_total + v.precio_total))
-    return sorted(combos, key=lambda c: c[2])[:n]
+        # para cada fecha de ida, solo la vuelta más barata (así el ranking muestra fechas distintas)
+        candidatas = [
+            v for v in vueltas.values()
+            if estadia["min"] <= (date.fromisoformat(v.fecha_vuelo) - date.fromisoformat(i.fecha_vuelo)).days <= estadia["max"]
+        ]
+        if candidatas:
+            v = min(candidatas, key=lambda x: (x.precio_total, x.fecha_vuelo))
+            combos.append((i, v, i.precio_total + v.precio_total))
+    return sorted(combos, key=lambda c: (c[2], c[0].fecha_vuelo))[:n]
 
 
 def minimo_anterior(historial: list[dict], hoy: str) -> dict[tuple[str, str], int]:
@@ -233,6 +238,7 @@ def generar_reporte(hoy: str, vuelos: list[Vuelo], errores: list[str], anterior:
         "",
         "- Cada tramo se busca como solo ida, así se pueden combinar aerolíneas distintas.",
         "- El precio de equipaje es una estimación de Google Flights; confirme el total en el sitio de la aerolínea antes de comprar.",
+        "- Sky Airline no publica precios en Google Flights: revísela aparte en skyairline.com.",
         "- La maleta despachada compartida (1 para el grupo) no siempre se refleja bien: súmela aparte si el reporte usa despachado=0.",
     ]
     if errores:

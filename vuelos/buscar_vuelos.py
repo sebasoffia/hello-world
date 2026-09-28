@@ -40,9 +40,50 @@ def rango_fechas(desde: str, hasta: str) -> list[date]:
     return [inicio + timedelta(days=i) for i in range((fin - inicio).days + 1)]
 
 
+def _hora(valor: list | None) -> str:
+    """Google omite componentes en cero: [8] = 08:00 y [None, 31] = 00:31."""
+    h, m = [*(valor or []), None, None][:2]
+    return "%02d:%02d" % (h or 0, m or 0)
+
+
+def extraer_vuelos(html: str) -> tuple[list[tuple[str, str, str, int]], int]:
+    """Lee los vuelos del HTML de Google Flights.
+
+    Reemplaza el parser de fast-flights, que falla completo si un solo vuelo
+    viene sin precio y además ignora la sección de "mejores vuelos".
+    Devuelve (aerolínea, salida, llegada, precio) y cuántos vuelos sin precio se omitieron.
+    """
+    from selectolax.lexbor import LexborHTMLParser
+
+    script = LexborHTMLParser(html).css_first(r"script.ds\:1")
+    if script is None:
+        raise ValueError("la respuesta de Google no trae datos de vuelos")
+    datos = script.text().split("data:", 1)[1].rsplit(",", 1)[0]
+    if datos.endswith("errorHasStatus: true"):
+        return [], 0
+    payload = json.loads(datos)
+
+    vuelos, vistos, sin_precio = [], set(), 0
+    for seccion in (2, 3):  # 2 = mejores vuelos, 3 = otros vuelos
+        bloque = payload[seccion] if len(payload) > seccion else None
+        for k in (bloque[0] if bloque and bloque[0] else []):
+            try:
+                precio = int(k[1][0][1])
+                vuelo = k[0]
+                aerolinea = " + ".join(vuelo[1])
+                salida, llegada = _hora(vuelo[2][0][8]), _hora(vuelo[2][-1][10])
+            except (IndexError, TypeError, ValueError):
+                sin_precio += 1
+                continue
+            if (aerolinea, salida) not in vistos:
+                vistos.add((aerolinea, salida))
+                vuelos.append((aerolinea, salida, llegada, precio))
+    return vuelos, sin_precio
+
+
 def consultar(origen: str, destino: str, dia: date, tramo: str) -> list[Vuelo]:
     """Devuelve los vuelos directos de un día, con el precio para todo el grupo."""
-    from fast_flights import FlightQuery, FlightsNotFound, Passengers, create_query, get_flights
+    from fast_flights import FlightQuery, Passengers, create_query, fetch_flights_html
 
     pasajeros = CONFIG["pasajeros"]
     query = create_query(
@@ -55,25 +96,11 @@ def consultar(origen: str, destino: str, dia: date, tramo: str) -> list[Vuelo]:
         carry_on_bags=CONFIG["equipaje"]["carry_on"],
         checked_bags=CONFIG["equipaje"]["despachado"],
     )
-    try:
-        resultados = get_flights(query)
-    except FlightsNotFound:
-        return []
-
-    vuelos = []
-    for r in resultados:
-        primer, ultimo = r.flights[0], r.flights[-1]
-        vuelos.append(
-            Vuelo(
-                tramo=tramo,
-                fecha_vuelo=dia.isoformat(),
-                aerolinea=" + ".join(r.airlines),
-                salida="%02d:%02d" % primer.departure.time,
-                llegada="%02d:%02d" % ultimo.arrival.time,
-                precio_total=int(r.price),
-            )
-        )
-    return vuelos
+    encontrados, _ = extraer_vuelos(fetch_flights_html(query))
+    return [
+        Vuelo(tramo, dia.isoformat(), aerolinea, salida, llegada, precio)
+        for aerolinea, salida, llegada, precio in encontrados
+    ]
 
 
 def buscar_todo() -> tuple[list[Vuelo], list[str]]:

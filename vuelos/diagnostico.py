@@ -1,30 +1,29 @@
-"""Diagnóstico: consulta una fecha y muestra qué se logra leer de Google."""
-import sys
-import traceback
-from pathlib import Path
+"""Diagnóstico: muestra la estructura cruda que devuelve Google Flights."""
+import json
+import re
 
 from fast_flights import FlightQuery, Passengers, create_query, fetch_flights_html
+from selectolax.lexbor import LexborHTMLParser
 
-sys.path.insert(0, str(Path(__file__).parent))
-from buscar_vuelos import extraer_vuelos  # noqa: E402
-
-VARIANTES = {
-    "con_carry_on": dict(carry_on_bags=1),
-    "sin_equipaje": dict(),
-}
-
-for nombre, kw in VARIANTES.items():
-    print(f"\n===== {nombre} =====")
-    q = create_query(
-        flights=[FlightQuery(date="2026-12-10", from_airport="AEP", to_airport="SCL")],
-        trip="one-way", currency="USD", language="es", max_stops=0,
-        passengers=Passengers(adults=2, children=1), **kw,
-    )
-    print("URL:", q.url())
-    try:
-        vuelos, sin_precio = extraer_vuelos(fetch_flights_html(q))
-        print(f"vuelos con precio: {len(vuelos)} | omitidos sin precio: {sin_precio}")
-        for v in vuelos:
-            print("  ", v)
-    except Exception:
-        traceback.print_exc()
+q = create_query(
+    flights=[FlightQuery(date="2026-12-10", from_airport="AEP", to_airport="SCL")],
+    trip="one-way", currency="USD", language="es", max_stops=0,
+    passengers=Passengers(adults=2, children=1),
+)
+html = fetch_flights_html(q)
+doc = LexborHTMLParser(html)
+print("scripts ds:", [s.attributes.get("class") for s in doc.css("script") if (s.attributes.get("class") or "").startswith("ds:")])
+datos = doc.css_first(r"script.ds\:1").text().split("data:", 1)[1].rsplit(",", 1)[0]
+payload = json.loads(datos)
+print("largo payload:", len(payload))
+for i, sec in enumerate(payload):
+    print(f"--- payload[{i}] ({type(sec).__name__}):", json.dumps(sec, ensure_ascii=False)[:400])
+for seccion in (2, 3):
+    bloque = payload[seccion]
+    for n, k in enumerate((bloque[0] if bloque and bloque[0] else [])[:3]):
+        print(f"\n### seccion {seccion} vuelo {n}: len(k)={len(k)}")
+        print("k[0][:2]:", json.dumps(k[0][:2], ensure_ascii=False))
+        for j, parte in enumerate(k[1:], 1):
+            print(f"k[{j}]:", json.dumps(parte, ensure_ascii=False)[:300])
+print("\nmontos con US$ en html:", re.findall(r"US\$\s?[\d.,]+", html)[:20])
+print("aria-label con precio:", re.findall(r'aria-label="[^"]{0,120}(?:dólares|USD)[^"]{0,80}"', html)[:5])

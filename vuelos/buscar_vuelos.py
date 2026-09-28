@@ -1,16 +1,18 @@
 """Búsqueda diaria de vuelos Aeroparque (AEP) <-> Santiago (SCL).
 
-Consulta Google Flights (vía la librería fast-flights) para cada fecha del
+Consulta Google Flights con un navegador real (Playwright) para cada fecha del
 rango configurado, guarda el histórico en CSV y genera un reporte en Markdown
 con las combinaciones ida + vuelta más baratas para el grupo completo.
 
 Uso:
     pip install -r vuelos/requirements.txt
+    python -m playwright install --with-deps chromium
     python vuelos/buscar_vuelos.py
 """
 
 import csv
 import json
+import re
 import sys
 import time
 from dataclasses import dataclass
@@ -32,7 +34,7 @@ class Vuelo:
     aerolinea: str
     salida: str
     llegada: str
-    precio_total: int  # para todo el grupo, en la moneda configurada
+    precio_total: int  # para todo el grupo, en USD
 
 
 def rango_fechas(desde: str, hasta: str) -> list[date]:
@@ -40,82 +42,90 @@ def rango_fechas(desde: str, hasta: str) -> list[date]:
     return [inicio + timedelta(days=i) for i in range((fin - inicio).days + 1)]
 
 
-def _hora(valor: list | None) -> str:
-    """Google omite componentes en cero: [8] = 08:00 y [None, 31] = 00:31."""
-    h, m = [*(valor or []), None, None][:2]
-    return "%02d:%02d" % (h or 0, m or 0)
+# Etiqueta accesible de cada vuelo en Google Flights (idioma inglés), p. ej.:
+# "From 665 US dollars. Nonstop flight with JetSMART. Leaves Aeroparque ... at 12:20 PM
+#  on Thursday, December 10 and arrives at ... at 2:42 PM on Thursday, December 10. ..."
+ETIQUETA = re.compile(
+    r"From ([\d,]+) US dollars\..*? flight with (.+?)\. Leaves .*? at (\d{1,2}:\d{2}\s?[AP]M) on "
+    r".*? arrives at .*? at (\d{1,2}:\d{2}\s?[AP]M) on"
+)
 
 
-def extraer_vuelos(html: str) -> tuple[list[tuple[str, str, str, int]], int]:
-    """Lee los vuelos del HTML de Google Flights.
-
-    Reemplaza el parser de fast-flights, que falla completo si un solo vuelo
-    viene sin precio y además ignora la sección de "mejores vuelos".
-    Devuelve (aerolínea, salida, llegada, precio) y cuántos vuelos sin precio se omitieron.
-    """
-    from selectolax.lexbor import LexborHTMLParser
-
-    script = LexborHTMLParser(html).css_first(r"script.ds\:1")
-    if script is None:
-        raise ValueError("la respuesta de Google no trae datos de vuelos")
-    datos = script.text().split("data:", 1)[1].rsplit(",", 1)[0]
-    if datos.endswith("errorHasStatus: true"):
-        return [], 0
-    payload = json.loads(datos)
-
-    vuelos, vistos, sin_precio = [], set(), 0
-    for seccion in (2, 3):  # 2 = mejores vuelos, 3 = otros vuelos
-        bloque = payload[seccion] if len(payload) > seccion else None
-        for k in (bloque[0] if bloque and bloque[0] else []):
-            try:
-                precio = int(k[1][0][1])
-                vuelo = k[0]
-                aerolinea = " + ".join(vuelo[1])
-                salida, llegada = _hora(vuelo[2][0][8]), _hora(vuelo[2][-1][10])
-            except (IndexError, TypeError, ValueError):
-                sin_precio += 1
-                continue
-            if (aerolinea, salida) not in vistos:
-                vistos.add((aerolinea, salida))
-                vuelos.append((aerolinea, salida, llegada, precio))
-    return vuelos, sin_precio
+def _hora_24(texto: str) -> str:
+    return datetime.strptime(re.sub(r"\s+", " ", texto), "%I:%M %p").strftime("%H:%M")
 
 
-def consultar(origen: str, destino: str, dia: date, tramo: str) -> list[Vuelo]:
-    """Devuelve los vuelos directos de un día, con el precio para todo el grupo."""
-    from fast_flights import FlightQuery, Passengers, create_query, fetch_flights_html
+def extraer_vuelos(etiquetas: list[str]) -> list[tuple[str, str, str, int]]:
+    """Convierte las etiquetas de la página en (aerolínea, salida, llegada, precio), sin duplicados."""
+    vuelos, vistos = [], set()
+    for etiqueta in etiquetas:
+        m = ETIQUETA.search(etiqueta)
+        if not m:
+            continue
+        precio, aerolinea = int(m.group(1).replace(",", "")), m.group(2)
+        salida, llegada = _hora_24(m.group(3)), _hora_24(m.group(4))
+        if (aerolinea, salida) not in vistos:
+            vistos.add((aerolinea, salida))
+            vuelos.append((aerolinea, salida, llegada, precio))
+    return vuelos
+
+
+def url_busqueda(origen: str, destino: str, dia: date) -> str:
+    from fast_flights import FlightQuery, Passengers, create_query
 
     pasajeros = CONFIG["pasajeros"]
-    query = create_query(
+    return create_query(
         flights=[FlightQuery(date=dia.isoformat(), from_airport=origen, to_airport=destino)],
         trip="one-way",
         passengers=Passengers(adults=pasajeros["adultos"], children=pasajeros["ninos"]),
-        currency=CONFIG["moneda"],
-        language="es",
+        currency="USD",
+        language="en",
         max_stops=0 if CONFIG["solo_directos"] else None,
         carry_on_bags=CONFIG["equipaje"]["carry_on"],
         checked_bags=CONFIG["equipaje"]["despachado"],
+    ).url()
+
+
+def consultar(pagina, origen: str, destino: str, dia: date, tramo: str) -> list[Vuelo]:
+    """Abre la búsqueda en el navegador y devuelve los vuelos del día con el precio para todo el grupo.
+
+    Google entrega los precios con JavaScript después de cargar la página, por eso
+    se usa un navegador real (Playwright) en vez de descargar el HTML.
+    """
+    pagina.goto(url_busqueda(origen, destino, dia), wait_until="domcontentloaded")
+    try:
+        pagina.wait_for_selector('[aria-label^="From "][aria-label*="US dollars"]', timeout=25000)
+    except Exception:
+        return []  # sin vuelos con precio para ese día
+    pagina.wait_for_timeout(1500)  # deja terminar de cargar el resto de la lista
+    etiquetas = pagina.eval_on_selector_all(
+        '[aria-label^="From "][aria-label*="US dollars"]', "els => els.map(e => e.getAttribute('aria-label'))"
     )
-    encontrados, _ = extraer_vuelos(fetch_flights_html(query))
     return [
         Vuelo(tramo, dia.isoformat(), aerolinea, salida, llegada, precio)
-        for aerolinea, salida, llegada, precio in encontrados
+        for aerolinea, salida, llegada, precio in extraer_vuelos(etiquetas)
     ]
 
 
 def buscar_todo() -> tuple[list[Vuelo], list[str]]:
+    from playwright.sync_api import sync_playwright
+
     vuelos, errores = [], []
     tramos = [
         ("ida", CONFIG["origen"], CONFIG["destino"], CONFIG["ida"]),
         ("vuelta", CONFIG["destino"], CONFIG["origen"], CONFIG["vuelta"]),
     ]
-    for tramo, origen, destino, rango in tramos:
-        for dia in rango_fechas(rango["desde"], rango["hasta"]):
-            try:
-                vuelos.extend(consultar(origen, destino, dia, tramo))
-            except Exception as e:  # una fecha fallida no debe cortar la búsqueda
-                errores.append(f"{tramo} {dia}: {type(e).__name__}: {e}")
-            time.sleep(CONFIG["pausa_segundos"])
+    with sync_playwright() as p:
+        navegador = p.chromium.launch()
+        pagina = navegador.new_page(locale="en-US")
+        for tramo, origen, destino, rango in tramos:
+            for dia in rango_fechas(rango["desde"], rango["hasta"]):
+                try:
+                    vuelos.extend(consultar(pagina, origen, destino, dia, tramo))
+                except Exception as e:  # una fecha fallida no debe cortar la búsqueda
+                    errores.append(f"{tramo} {dia}: {type(e).__name__}: {e}")
+                time.sleep(CONFIG["pausa_segundos"])
+        navegador.close()
     return vuelos, errores
 
 
@@ -175,7 +185,7 @@ def minimo_anterior(historial: list[dict], hoy: str) -> dict[tuple[str, str], in
 
 
 def generar_reporte(hoy: str, vuelos: list[Vuelo], errores: list[str], anterior: dict) -> str:
-    moneda = CONFIG["moneda"]
+    moneda = "USD"
     p = CONFIG["pasajeros"]
     eq = CONFIG["equipaje"]
     lineas = [

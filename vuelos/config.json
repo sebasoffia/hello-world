@@ -7,7 +7,6 @@
   "pasajeros": { "adultos": 2, "ninos": 1 },
   "equipaje": { "carry_on": 1, "despachado": 0 },
   "solo_directos": true,
-  "moneda": "USD",
   "pausa_segundos": 2,
   "top_combinaciones": 10,
   "alerta_baja_porcentaje": 10

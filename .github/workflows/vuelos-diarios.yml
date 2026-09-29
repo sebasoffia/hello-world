@@ -6,7 +6,7 @@ on:
     - cron: "23 11 * * *"
   workflow_dispatch:
   push:
-    branches: [claude/vuelos-buenos-aires-santiago-z7rrto]
+    branches: [master, claude/vuelos-buenos-aires-santiago-z7rrto]
     paths:
       - "vuelos/buscar_vuelos.py"
       - "vuelos/config.json"
@@ -25,9 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 

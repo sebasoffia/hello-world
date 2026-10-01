@@ -95,6 +95,11 @@ def busqueda_sky(contexto) -> list[str]:
         if "skyairline.com" in url and "butter-cache" not in url and "feature" not in url:
             linea = f"{resp.status} {resp.request.method} {url[:300]}"
             lineas.append("  API " + linea)
+            if url.endswith(".js") and ("flight-box" in url or "sale-core" in url):
+                try:
+                    (SALIDA / ("bundle_" + url.split("//")[1].split(".")[0] + ".js")).write_text(resp.text(), encoding="utf-8")
+                except Exception:  # noqa: BLE001
+                    pass
             if resp.request.method == "POST" or any(k in url.lower() for k in ("avail", "flight", "search", "fare", "offer")):
                 try:
                     cuerpos.append(f"### {linea}\nPETICION: {(resp.request.post_data or '')[:2000]}\nRESPUESTA: {resp.text()[:6000]}")
@@ -122,21 +127,14 @@ def busqueda_sky(contexto) -> list[str]:
     def destino():
         textos.nth(1).click()
         textos.nth(1).fill("Santiago")
-        pagina.wait_for_timeout(2000)
-        pagina.get_by_text("Santiago", exact=False).filter(has_not=pagina.locator("input")).last.click(timeout=8000)
+        pagina.wait_for_timeout(2500)
+        pagina.get_by_text("Aeropuerto Santiago (SCL)").first.click(timeout=8000)
 
     paso("destino", destino)
-    opciones = pagina.locator("li, [role=option]").all_inner_texts()
-    lineas.append("Opciones visibles: " + " | ".join(o.strip()[:40] for o in opciones[:40]))
+    pagina.wait_for_timeout(2500)
+    (SALIDA / "calendario.html").write_text(pagina.content(), encoding="utf-8")
+    pagina.screenshot(path=str(SALIDA / "calendario.png"))
 
-    def fecha():
-        textos.nth(2).click()
-        pagina.wait_for_timeout(1500)
-        (SALIDA / "calendario.html").write_text(pagina.content(), encoding="utf-8")
-        dias = pagina.locator("[aria-label*='diciembre'], [aria-label*='December'], [data-date*='2026-12']")
-        lineas.append(f"Celdas de diciembre visibles: {dias.count()}")
-
-    paso("abrir_calendario", fecha)
     paso("buscar", lambda: pagina.get_by_role("button", name="Buscar vuelo").click(timeout=8000))
     pagina.wait_for_timeout(12000)
     lineas.append(f"URL final: {pagina.url}")

@@ -1,153 +1,69 @@
-# Google Flights
-## AEP-SCL 2026-12-15: 20 vuelos
-    From 502 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Aeroparque Internacional Jorge Newbery at 5:55 PM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 8:20 PM on Tuesday, December 15. Total duration 2 hr 
-    From 517 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Peru. Leaves Aeroparque Internacional Jorge Newbery at 9:25 AM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 11:41 AM on Tuesday, December 15. To
-    From 517 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Group. Leaves Aeroparque Internacional Jorge Newbery at 3:50 PM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 6:06 PM on Tuesday, December 15. To
-    From 517 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Group. Leaves Aeroparque Internacional Jorge Newbery at 9:00 PM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 11:16 PM on Tuesday, December 15. T
-    From 578 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Aeroparque Internacional Jorge Newbery at 12:20 PM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 2:45 PM on Tuesday, December 15. Total duration 2 hr
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Aeroparque Internacional Jorge Newbery at 11:50 AM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 2:10 PM on Tuesday, December 15. Total duration 2 hr 20
-    From 502 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Aeroparque Internacional Jorge Newbery at 7:00 AM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 9:25 AM on Tuesday, December 15. Total duration 2 hr 
-    From 663 US dollars. Nonstop flight with JetSMART. Operated by Jetsmart Airlines S.a.. Leaves Aeroparque Internacional Jorge Newbery at 5:45 AM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 8:07 AM on Tuesday, December 1
-    From 663 US dollars. Nonstop flight with JetSMART. Leaves Aeroparque Internacional Jorge Newbery at 10:10 PM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 12:32 AM on Wednesday, December 16. Total duration 2 hr 22 min.  
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Aeroparque Internacional Jorge Newbery at 9:30 PM on Tuesday, December 15 and arrives at Arturo Merino Benitez International Airport at 11:55 PM on Tuesday, December 15. Total duration 2 hr 25
-## AEP-SCL 2026-12-16: 20 vuelos
-    From 502 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Aeroparque Internacional Jorge Newbery at 12:20 PM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 2:45 PM on Wednesday, December 16. Total duration 
-    From 517 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Peru. Leaves Aeroparque Internacional Jorge Newbery at 9:25 AM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 11:41 AM on Wednesday, December 16
-    From 517 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Group. Leaves Aeroparque Internacional Jorge Newbery at 3:50 PM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 6:06 PM on Wednesday, December 16
-    From 517 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Group. Leaves Aeroparque Internacional Jorge Newbery at 9:00 PM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 11:16 PM on Wednesday, December 1
-    From 517 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Group. Leaves Aeroparque Internacional Jorge Newbery at 10:30 PM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 12:46 AM on Thursday, December 1
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Aeroparque Internacional Jorge Newbery at 11:50 AM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 2:10 PM on Wednesday, December 16. Total duration 2 h
-    From 539 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Aeroparque Internacional Jorge Newbery at 7:00 AM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 9:25 AM on Wednesday, December 16. Total duration 2
-    From 663 US dollars. Nonstop flight with JetSMART. Leaves Aeroparque Internacional Jorge Newbery at 10:10 PM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 12:32 AM on Thursday, December 17. Total duration 2 hr 22 min. 
-    From 675 US dollars. Nonstop flight with JetSMART. Operated by Jetsmart Airlines S.a.. Leaves Aeroparque Internacional Jorge Newbery at 5:45 AM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 8:07 AM on Wednesday, Decemb
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Aeroparque Internacional Jorge Newbery at 9:30 PM on Wednesday, December 16 and arrives at Arturo Merino Benitez International Airport at 11:55 PM on Wednesday, December 16. Total duration 2 h
-## AEP-SCL 2026-12-17: 12 vuelos
-    From 502 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Aeroparque Internacional Jorge Newbery at 12:20 PM on Thursday, December 17 and arrives at Arturo Merino Benitez International Airport at 2:45 PM on Thursday, December 17. Total duration 2 
-    From 517 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Group. Leaves Aeroparque Internacional Jorge Newbery at 9:00 PM on Thursday, December 17 and arrives at Arturo Merino Benitez International Airport at 11:16 PM on Thursday, December 17.
-    From 675 US dollars. Nonstop flight with JetSMART. Leaves Aeroparque Internacional Jorge Newbery at 12:20 PM on Thursday, December 17 and arrives at Arturo Merino Benitez International Airport at 2:42 PM on Thursday, December 17. Total duration 2 hr 22 min.   
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Aeroparque Internacional Jorge Newbery at 11:50 AM on Thursday, December 17 and arrives at Arturo Merino Benitez International Airport at 2:10 PM on Thursday, December 17. Total duration 2 hr 
-    From 775 US dollars. Nonstop flight with JetSMART. Operated by Jetsmart Airlines S.a.. Leaves Aeroparque Internacional Jorge Newbery at 5:20 AM on Thursday, December 17 and arrives at Arturo Merino Benitez International Airport at 7:42 AM on Thursday, December
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Aeroparque Internacional Jorge Newbery at 9:30 PM on Thursday, December 17 and arrives at Arturo Merino Benitez International Airport at 11:55 PM on Thursday, December 17. Total duration 2 hr 
-## SCL-AEP 2027-01-27: 8 vuelos
-    From 374 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Arturo Merino Benitez International Airport at 10:15 AM on Wednesday, January 27 and arrives at Aeroparque Internacional Jorge Newbery at 12:20 PM on Wednesday, January 27. Total duration 2
-    From 389 US dollars. Nonstop flight with JetSMART. Leaves Arturo Merino Benitez International Airport at 7:23 AM on Wednesday, January 27 and arrives at Aeroparque Internacional Jorge Newbery at 9:30 AM on Wednesday, January 27. Total duration 2 hr 7 min.   Un
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Arturo Merino Benitez International Airport at 8:50 AM on Wednesday, January 27 and arrives at Aeroparque Internacional Jorge Newbery at 11:00 AM on Wednesday, January 27. Total duration 2 hr 
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Arturo Merino Benitez International Airport at 6:30 PM on Wednesday, January 27 and arrives at Aeroparque Internacional Jorge Newbery at 8:40 PM on Wednesday, January 27. Total duration 2 hr 1
-## SCL-AEP 2027-02-03: 18 vuelos
-    From 265 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Arturo Merino Benitez International Airport at 9:50 PM on Wednesday, February 3 and arrives at Aeroparque Internacional Jorge Newbery at 11:55 PM on Wednesday, February 3. Total duration 2 
-    From 292 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Arturo Merino Benitez International Airport at 6:55 PM on Wednesday, February 3 and arrives at Aeroparque Internacional Jorge Newbery at 9:00 PM on Wednesday, February 3. Total duration 2 h
-    From 374 US dollars. Nonstop flight with Aerolineas Argentinas. Leaves Arturo Merino Benitez International Airport at 10:15 AM on Wednesday, February 3 and arrives at Aeroparque Internacional Jorge Newbery at 12:20 PM on Wednesday, February 3. Total duration 2
-    From 380 US dollars. Nonstop flight with JetSMART. Leaves Arturo Merino Benitez International Airport at 1:23 PM on Wednesday, February 3 and arrives at Aeroparque Internacional Jorge Newbery at 3:30 PM on Wednesday, February 3. Total duration 2 hr 7 min.   Un
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Arturo Merino Benitez International Airport at 8:50 AM on Wednesday, February 3 and arrives at Aeroparque Internacional Jorge Newbery at 11:00 AM on Wednesday, February 3. Total duration 2 hr 
-    From 380 US dollars. Nonstop flight with JetSMART. Leaves Arturo Merino Benitez International Airport at 7:23 AM on Wednesday, February 3 and arrives at Aeroparque Internacional Jorge Newbery at 9:30 AM on Wednesday, February 3. Total duration 2 hr 7 min.   Un
-    From 448 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Group. Leaves Arturo Merino Benitez International Airport at 7:18 PM on Wednesday, February 3 and arrives at Aeroparque Internacional Jorge Newbery at 9:30 PM on Wednesday, February 3. 
-    From 507 US dollars. Nonstop flight with LATAM. Operated by Latam Airlines Group. Leaves Arturo Merino Benitez International Airport at 5:28 PM on Wednesday, February 3 and arrives at Aeroparque Internacional Jorge Newbery at 7:40 PM on Wednesday, February 3. 
-SKY Total price is unavailable. Nonstop flight with Sky Airline. Leaves Arturo Merino Benitez International Airport at 6:30 PM on Wednesday, February 3 and arrives at Aeroparque Internacional Jorge Newbery at 8:40 PM on Wednesday, February 3. Total duration 2 hr 1
-
-# skyairline.com
-## https://www.skyairline.com/argentina: HTTP 200 · título: 'SKY Airline | Encuentra vuelos baratos a los mejores destinos'
-Texto: ¿Preferís pagar en dólares? | Visitá nuestro sitio de Estados Unidos y hacé tu compra desde ahí. |  Si vas a pagar en dólares, fijate que tu tarjeta esté habilitada para compras en USD y avisá al banco para más seguridad |  | Comprá acá |  | Planifica tu viaje | Check-in | Mis Viajes | Centro de ayuda | SKY Plus | Inicia Sesión/Registrate | Personas | ES | ¡Estamos renovando nuestros canales de atención! Revisa nuestros nuevos números de contacto y elige el canal que necesitas. Ver Canales | ¿Viajas a EE.UU. y estuviste recientemente en RDC, Uganda o Sudán del Sur? Revisa información importante para tu viaje | ¿Vuelas internacional y haces conexión en Lima? Deberás pagar una tasa de conexión al concesionario del aeropuerto. Más info | VUELOS | HOTELES | AUTOS | Ida-Vuelta | Solo ida |  | | |  | Tengo un código de descuento | Desde | Hacia | Ingresa la ciudad de destino. | Hacia | Ida-Vuelta | Pasajeros | Buscar vuelo | NUEVA EXPERIENCIA | Economy Premier, para los que les gusta ir primero |  | Comida sujeto a duración del vuelo. |  | Ver vuelos | Vuelos y pasajes de avión baratos desde Argentina con SKY | Con SKY Vuelas barato y viajas más | 58% DCTO. | Chile | Santiago de Chile |  | Precio final ida y vuelta |  | Desde | USD 122 |  | por persona |  | 24% DCTO. | Perú | Lima |  | Precio final ida y vuelta |  | Desde | USD 359 |  | por persona |  | ACUMULA PUNTOS | Estados Unidos | Miami |  | Precio final ida y vuelta |  | Desde | USD 746 |  | por persona |  | Complementá tu viaje |  | TUR.COM |  | Encuentra los mejores Tours y Actividades |  | Ver tours |  | TU HOTEL IDEAL |  | Desde un 15% OFF. |  | VER HOTELES |  | VIAJÁ CON SKY |  | ¿Querés pagar en
-Controles:
-  INPUT · radio ·  ·  ·  ·  · 
-  INPUT · radio ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  BUTTON · submit ·  ·  ·  ·  · Buscar vuelo
-  BUTTON · submit ·  ·  ·  ·  · Ver vuelos
-  BUTTON · submit ·  ·  ·  ·  · Ver tours
-  BUTTON · submit ·  ·  ·  ·  · VER HOTELES
-  BUTTON · submit ·  ·  ·  ·  · Ver vuelos
-  BUTTON · submit ·  ·  ·  ·  · Ver vuelos
-  BUTTON · submit ·  ·  ·  ·  · Revisar más información sobre SKY Airlin
-  BUTTON · submit ·  ·  ·  ·  · Descubre los destinos de SKY
-  BUTTON · submit ·  ·  ·  ·  · Revisar información sobre pasajes flexib
-  BUTTON · submit ·  ·  ·  ·  · Conocer la experiencia a bordo de SKY
-  BUTTON · submit ·  ·  ·  ·  · Revisar los canales de atención de SKY
-  BUTTON · button ·  ·  ·  · Close · 
-  BUTTON · submit ·  ·  ·  ·  · Continuar en SKY Argentina
-  BUTTON · submit ·  ·  ·  ·  · Cambiar a SKY Estados Unidos
-## https://www.skyairline.com/chile: HTTP 200 · título: 'SKY Airline | Encuentra vuelos baratos a los mejores destinos'
-Texto: Planifica tu viaje | Check-in | Mis Viajes | Centro de ayuda | SKY Plus | Inicia Sesión/Regístrate | Personas | ES | Flexibilidad en ruta Puerto Natales | ¡Estamos renovando nuestros canales de atención! Revisa nuestros nuevos números de contacto y elige el canal que necesitas. Ver Canales | ¿Viajas a EE.UU. y estuviste recientemente en RDC, Uganda o Sudán del Sur? Revisa información importante para tu viaje | VUELOS | PAQUETES DE VIAJES | HOTELES | AUTOS | Ida-Vuelta | Solo ida |  | | |  | Tengo un código de descuento | Cotizar para grupos | Desde | Hacia | Ingresa la ciudad de destino. | Hacia | Ida-Vuelta | Pasajeros | Buscar vuelo | Con SKY Vuelas barato y viajas más | ACUMULA PUNTOS | Chile | La Serena |  | Precio final por tramo |  | Desde | CLP 30.090 |  | por persona |  | ACUMULA PUNTOS | Argentina | Mendoza |  | Precio final ida y vuelta |  | Desde | CLP 181.790 |  | por persona |  | ACUMULA PUNTOS | Brasil | Florianópolis |  | Precio final ida y vuelta |  | Desde | CLP 383.090 |  | por persona |  | ACUMULA PUNTOS | Chile | Concepción |  | Precio final por tramo |  | Desde | CLP 36.090 |  | por persona |  | Complementa tu viaje |  | PAQUETES DE VIAJE SKY |  | Ahorra hasta un 30% reservando paquetes de viaje |  | Ver Paquetes |  | BOOKING |  | Reserva tu alojamiento desde 15% de dcto. |  | Ver Hoteles |  | TUR.COM |  | Encuentra aquí los mejores tours con un 20% DCTO. utlizando el cupón SKY20 |  | Ver Ofertas |  | SKYPLUS |  | Inscríbete a SKY Plus y acumula puntos en todos tus vuelos. |  | Inscribirme |  | ¿TODO LISTO PARA VIAJAR? |  | Descubre SKY |  | Desde el momento que realizas la reserva hasta que llegas a tu destino, estamos aquí para asegurarnos que disfrutes una
-Controles:
-  INPUT · radio ·  ·  ·  ·  · 
-  INPUT · radio ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  INPUT · text ·  ·  ·  ·  · 
-  BUTTON · submit ·  ·  ·  ·  · Buscar vuelo
-  BUTTON · submit ·  ·  ·  ·  · Ver Paquetes
-  BUTTON · submit ·  ·  ·  ·  · Ver Hoteles
-  BUTTON · submit ·  ·  ·  ·  · Ver Ofertas
-  BUTTON · submit ·  ·  ·  ·  · Inscribirme
-  BUTTON · submit ·  ·  ·  ·  · Revisar más información sobre SKY Airlin
-  BUTTON · submit ·  ·  ·  ·  · Descubre los destinos de SKY
-  BUTTON · submit ·  ·  ·  ·  · Revisar información sobre pasajes flexib
-  BUTTON · submit ·  ·  ·  ·  · Conocer la experiencia a bordo de SKY
-  BUTTON · submit ·  ·  ·  ·  · Revisar los canales de atención de SKY
-  BUTTON · button ·  ·  ·  · Close · 
-  BUTTON · submit ·  ·  ·  ·  · Continuar en SKY Chile
-  BUTTON · submit ·  ·  ·  ·  · Cambiar a SKY Estados Unidos
-## Llamadas JSON/API
-200 GET https://storage.googleapis.com/importmap-retail/PROD/importmap.json
-200 GET https://www.gstatic.com/recaptcha/api2/logo_48.png
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=configuration-global&homeMarket=global&levels=2&locale=es
-200 GET https://gitlab.com/api/v4/projects/44603188/feature_flags
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=footer&homeMarket=argentina&levels=5&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=multilanguage-label&homeMarket=global&levels=2&locale=es
-200 GET https://unleash-proxy.skyairline.com/proxy?sessionId=801720465&appName=production&environment=default
-200 GET https://api.skyairline.com/is-cms/api/feature-flags?homeMarket=AR&channel=Retail
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=header&homeMarket=argentina&levels=5&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=header&homeMarket=argentina&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=configuration-global&homeMarket=global&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=minimal-header-controller&homeMarket=global&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=configuration-global&homeMarket=global&levels=2&locale=es
-200 GET https://locationv2.api.useinsider.com/?v=2&pId=10013667&
-200 GET https://segment.api.useinsider.com/v4/segments/17908877848764e30bc5a85.c2d3c2dc?partnerid=10013667&fields=6fefc87aa1dd4361f3cb89fcbc19136f,242e90c222253e456b64c4eb118e0781,c394fd9cff12b0c5b6c75f95cdbd094a&
-200 GET https://api.skyairline.com/exchange-rate/v1/currencies/conversion?currencyFrom=USD&currencyTo=PEN
-200 POST https://ucd-web.api.useinsider.com/v1/get
-204 POST https://falcon.useinsider.com/api/v2/log-tracking/hit/skyairline
-200 POST https://carrier.useinsider.com/y/v2/z
-200 POST https://unification.useinsider.com/api/identity/v1/get
-200 POST https://carrier.useinsider.com/y/v2/z
-200 GET https://segment.api.useinsider.com/v4/segments/17908877848764e30bc5a85.c2d3c2dc?partnerid=10013667&fields=6fefc87aa1dd4361f3cb89fcbc19136f,242e90c222253e456b64c4eb118e0781,c394fd9cff12b0c5b6c75f95cdbd094a&
-200 POST https://analytics.tiktok.com/api/v2/pixel
-200 GET https://skyairline.api.useinsider.com/api/info/1057.24?pa=shopping-trigger&
-200 POST https://analytics.tiktok.com/api/v2/pixel
-200 POST https://us.creativecdn.com/tags/v2?type=json&tc=1
-200 POST https://unification.useinsider.com/api/event/v1/insert
-200 POST https://analytics.tiktok.com/api/v2/pixel/act
-200 GET https://api.skyairline.com/aeropath/v1/getRoutesList
-200 GET https://api.skyairline.com/aeropath/v1/aeropathways
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=multilanguage-label&homeMarket=global&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=availability-range-calendar&homeMarket=global&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=configuration-global&homeMarket=global&levels=2&locale=es
-200 GET https://storage.googleapis.com/importmap-retail/PROD/importmap.json
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=configuration-global&homeMarket=global&levels=2&locale=es
-200 GET https://www.gstatic.com/recaptcha/api2/logo_48.png
-200 GET https://gitlab.com/api/v4/projects/44603188/feature_flags
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=multilanguage-label&homeMarket=global&levels=2&locale=es
-200 GET https://unleash-proxy.skyairline.com/proxy?sessionId=801720465&appName=production&environment=default
-200 GET https://api.skyairline.com/is-cms/api/feature-flags?homeMarket=CL&channel=Retail
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=header&homeMarket=chile&levels=5&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=header&homeMarket=chile&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=configuration-global&homeMarket=global&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=minimal-header-controller&homeMarket=global&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=configuration-global&homeMarket=global&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=footer&homeMarket=chile&levels=5&locale=es
-204 POST https://falcon.useinsider.com/api/v2/log-tracking/hit/skyairline
-200 POST https://us.creativecdn.com/tags/v2?type=json
-200 GET https://skyairline.api.useinsider.com/api/info/4900.24?pa=shopping-trigger&
-200 POST https://aryuder.api.useinsider.com/v3/status
-200 POST https://analytics.tiktok.com/api/v2/pixel
-200 POST https://analytics.tiktok.com/api/v2/pixel
-200 POST https://unification.useinsider.com/api/event/v1/insert
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=multilanguage-label&homeMarket=global&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=configuration-global&homeMarket=global&levels=2&locale=es
-200 GET https://butter-cache-bl.skyairline.com/v1/page?name=availability-range-calendar&homeMarket=global&levels=2&locale=es
-200 POST https://analytics.tiktok.com/api/v2/pixel/act
-200 POST https://aryuder.api.useinsider.com/v3/status
+# Búsqueda en skyairline.com
+  API 301 GET https://www.skyairline.com/argentina
+  API 200 GET https://www.skyairline.com/es/argentina
+  API 200 GET https://www.skyairline.com/sky-root-config.js
+  API 200 GET https://www.skyairline.com/ruxitagentjs_ICA15789NPRTUVXfqrux_10347260902154543.js
+  API 302 GET https://www.skyairline.com/cdn-cgi/challenge-platform/scripts/jsd/main.js
+  API 200 GET https://www.skyairline.com/cdn-cgi/challenge-platform/h/b/scripts/jsd/d76008a69eab/main.js?
+  API 200 GET https://util-butter-cms.skyairline.com/js/app.3a40d2d9.js
+  API 200 GET https://util-sale-core.skyairline.com/skyairline-util-sale-core.js
+  API 200 GET https://util-chatbot-sdk.skyairline.com/skyairline-servicios-chatbot-sdk.js
+  API 200 GET https://flight-box.skyairline.com/js/app.407e6961.js
+  API 200 POST https://www.skyairline.com/cdn-cgi/challenge-platform/h/b/jsd/oneshot/d76008a69eab/0.4886992310964171:1790885123:5EIlArff4sYLzp4PIRffC-eAwbG9Hhnd4PmF8ICJulE/a43e5b5a3ec7b1eb
+  API 200 GET https://app-retail-footer.skyairline.com/js/app.b7fc70e9.js
+  API 200 GET https://util-business-store.skyairline.com/js/app.51374ad9.js
+  API 200 GET https://util-business-common.skyairline.com/skyairline-util-business-common.js
+  API 200 GET https://app-retail-home.skyairline.com/js/app.c4d662c1.js
+  API 200 GET https://util-business-events.skyairline.com/skyairline-util-business-events.js
+  API 200 GET https://app-retail-header.skyairline.com/js/app.dccc0b65.js
+  API 200 GET https://utils-marking-google-analytics.skyairline.com/js/app.da87ed03.js
+  API 200 GET https://util-registry-manager.skyairline.com/js/app.db265530.js
+  API 200 GET https://util-login-storage.skyairline.com/skyairline-util-login-store.js
+  API 200 GET https://util-desing-system.skyairline.com/skyairline-util-desing-system.js
+  API 200 GET https://dev.visualwebsiteoptimizer.com/j.php?a=781810&u=https%3A%2F%2Fwww.skyairline.com%2Fes%2Fargentina&vn=2.1&x=true
+  API 200 GET https://app-sky-login.skyairline.com/js/app.cd0cc300.js
+  API 200 GET https://util-login-api.skyairline.com/skyairline-util-login-api.js
+  API 200 GET https://dev.visualwebsiteoptimizer.com/collect/v.gif?cd=0&a=781810&d=skyairline.com&u=D6388DF8255887E4FA7AA3F2291E0FA60&h=a9f2e5964cb99370331ed58770f4e135&t=true
+  API 200 GET https://unleash-proxy.skyairline.com/proxy?sessionId=219134026&appName=production&environment=default
+  API 200 GET https://app-retail-home.skyairline.com/img/sky-title-vitrinas.a4e81eba.svg
+  API 200 GET https://ssl.google-analytics.com/r/__utm.gif?utmwv=5.7.2&utms=1&utmn=1284664565&utmhn=www.skyairline.com&utmcs=UTF-8&utmsr=1366x900&utmvp=1366x900&utmsc=24-bit&utmul=es-ar&utmje=0&utmfl=-&utmdt=SKY%20Airline%20%7C%20Encuentra%20vuelos%20baratos%20a%20los%20mejores%20destinos&utmhid=59674058&utmr=-&u
+  API 200 GET blob:https://www.skyairline.com/a0d7e7ca-c58c-4343-9934-665bfeb7f091
+  API 204 POST https://analytics.google.com/g/collect?v=2&tid=G-MDC7SK7K95&gtm=45je69u0v9102936071z89181612144za20gzb9181612144zd9181612144xf1&_p=1790888007057&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=479503840&_eu=AAAAAGAC&cid=1657134063.1790888009&frm=0&pscdl=noapi&rcb=14&sr=1366x900&uaa=x86&uab=64&uafvl=Headles
+  API 200 POST https://www.google.com/ccm/collect?rcb=3&frm=0&apvc=1&ae=g&auid=1489024392.1790888009&dt=SKY%20Airline%20%7C%20Encuentra%20vuelos%20baratos%20a%20los%20mejores%20destinos&en=page_view&dl=https%3A%2F%2Fwww.skyairline.com%2Fes%2Fargentina&scrsrc=www.googletagmanager.com&rnd=1274162952.1790888009&navt=
+  API 200 GET https://api.skyairline.com/exchange-rate/v1/currencies/conversion?currencyFrom=USD&currencyTo=PEN
+  API 200 POST https://www.google.com/ccm/collect?rcb=7&frm=0&apvc=0&ae=g&auid=1489024392.1790888009&dt=SKY%20Airline%20%7C%20Encuentra%20vuelos%20baratos%20a%20los%20mejores%20destinos&tid=AW-11084749483&dl=https%3A%2F%2Fwww.skyairline.com%2Fes%2Fargentina&scrsrc=www.googletagmanager.com&rnd=1274162952.1790888009
+  API 200 POST https://www.google.com/rmkt/collect/11084749483/?random=1790888009851&cv=11&fst=1790888009851&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be69u0v9118336661z89184755220za20gzb9184755220zd9181612144xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119793972~120213116~120385422~12
+  API 200 GET https://connect.facebook.net/signals/config/2166829216742051?v=2.9.412&r=stable&domain=www.skyairline.com&hme=a4c28c8787325ac3f8f9eac68364f47df2a8c4266e43177443e5d7f6289c9774&ex_m=117%2C240%2C170%2C27%2C81%2C82%2C161%2C77%2C76%2C11%2C180%2C101%2C20%2C152%2C140%2C46%2C84%2C89%2C148%2C175%2C182%2C8%2C
+  API 200 GET https://googleads.g.doubleclick.net/pagead/viewthroughconversion/11084749483/?random=1790888009851&cv=11&fst=1790888009851&bg=ffffff&guid=ON&async=1&gtm=45be69u0v9118336661z89184755220za20gzb9184755220zd9181612144xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119793972
+  API 302 GET https://15135531.fls.doubleclick.net/activityi;src=15135531;type=invmedia;cat=hpg_s0;rcb=18;ord=328647978334;npa=0;auiddc=1489024392.1790888009;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap=Windows;uapv=10.0;uaw=0;pscdl=noa
+  API 200 GET https://15135531.fls.doubleclick.net/activityi;dc_pre=CN_0st3ZmZcDFdQMIQQdYGIW4w;src=15135531;type=invmedia;cat=hpg_s0;rcb=18;ord=328647978334;npa=0;auiddc=1489024392.1790888009;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap
+  API 204 GET https://bat.bing.com/action/0?ti=343191373&Ver=2&mid=eb954db1-51f3-4534-96f1-d564c005966b&bo=1&sid=284090b0bdda11f1983f873ff69c707b&vid=2840bd60bdda11f1b48b75a05f3b64ad&vids=1&msclkid=N&uach=pv%3D10.0&pi=0&lg=es-AR&sw=1366&sh=900&sc=24&nwd=1&tl=SKY%20Airline%20%7C%20Encuentra%20vuelos%20baratos%20a%
+  API 302 POST https://ad.doubleclick.net/activity;src=15135531;type=invmedia;cat=hpg_s0;rcb=18;ord=328647978334;npa=0;auiddc=1489024392.1790888009;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap=Windows;uapv=10.0;uaw=0;pscdl=noapi;frm=0;_t
+  API 302 GET https://ad.doubleclick.net/activity;dc_pre=CMPBrt3ZmZcDFcFOKQYdVlYqxg;src=15135531;type=invmedia;cat=hpg_s0;rcb=18;ord=328647978334;npa=0;auiddc=1489024392.1790888009;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap=Windows;ua
+  API 200 GET https://adservice.google.com/ddm/fls/z/dc_pre=CN_0st3ZmZcDFdQMIQQdYGIW4w;src=15135531;type=invmedia;cat=hpg_s0;rcb=18;ord=328647978334;npa=0;auiddc=*;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap=Windows;uapv=10.0;uaw=0;psc
+  API 200 GET https://www.google.com/gmp/conversion/_dc_unique_id=16737800480978658556;_dc_ptd=ChAI8In41QYQ0dqZk8b91YVgEh8AybLYVKyOI98OR8eRT6RV4QKFEDNvNrASKuD04dQN;_dc_time=1790888010;cid=CAQS4QEAQM4h3FLzEkD83GLzmCMEitY7ojTGbJZmvfbfeAkzte_bTV2ZU0WB__sgtPBvn8i9JQA6g-mI-vYOArg0Nb8CPOZJLMjRNiiidwdJze_xIpYs9JF1lpAu8e
+  API 200 GET https://www.googleadservices.com/pagead/conversion/16819037882/?random=1790888010261&cv=9&fst=1790888010261&num=1&npa=1&label=h4qYCJ3sxo0aELrN-NM-&guid=ON&resp=GooglemKTybQhCsO&eid=375603261%2C466465925%2C512247839%2C658953495&u_h=900&u_w=1366&ig=1&auid=1489024392.1790888009&frm=2&url=https%3A%2F%2F
+  API 302 GET https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16819037882/?random=563366031&cv=9&fst=1790888010261&num=1&npa=1&label=h4qYCJ3sxo0aELrN-NM-&guid=ON&resp=GooglemKTybQhCsO&eid=375603261%2C466465925%2C512247839%2C658953495&u_h=900&u_w=1366&ig=1&auid=1489024392.1790888009&frm=2&url=http
+  API 200 POST https://unleash-proxy.skyairline.com/proxy/client/metrics
+  API 200 GET https://www.google.com/pagead/1p-user-list/11084749483/?random=1790888009851&cv=11&fst=1790884800000&bg=ffffff&guid=ON&async=1&gtm=45be69u0v9118336661z89184755220za20gzb9184755220zd9181612144xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119793972~120213116~120385422~1
+  API 200 GET https://www.google.com/pagead/1p-conversion/16819037882/?random=563366031&cv=9&fst=1790888010261&num=1&npa=1&label=h4qYCJ3sxo0aELrN-NM-&guid=ON&resp=GooglemKTybQhCsO&eid=375603261%2C466465925%2C512247839%2C658953495&u_h=900&u_w=1366&ig=1&auid=1489024392.1790888009&frm=2&url=https%3A%2F%2F15135531.fl
+  API 200 GET https://ssl.google-analytics.com/__utm.gif?utmwv=5.7.2&utms=2&utmn=187569069&utmhn=www.skyairline.com&utmt=event&utme=14(3900*0*0*290*0*130*520*580)(3900*0*0*297*2*139*522*586)&utmcs=UTF-8&utmsr=1366x900&utmvp=1366x900&utmsc=24-bit&utmul=es-ar&utmje=0&utmfl=-&utmdt=SKY%20Airline%20%7C%20Encuentra%20
+  API 204 POST https://www.skyairline.com/cdn-cgi/rum?
+  API 200 GET https://api.skyairline.com/aeropath/v1/aeropathways
+  API 200 GET https://api.skyairline.com/aeropath/v1/getRoutesList
+OK cerrar_aviso
+OK solo_ida
+FALLO destino: TimeoutError: Locator.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for get_by_text("Santiago").filter(has_not=locator("input")).last
+    - locator resolved to <p data-v-21e2545c="" class="retail-footer-nav
+Opciones visibles: VUELOS | HOTELES | AUTOS | Acerca de SKY | SKY Plus | Trabaja en SKY | Accesibilidad Web | Centro de ayuda | Canales de atención | Estado de caso y reclamos | Canal de denuncias | Pasajes flexibles | Política de privacidad | Términos y condiciones promocionales | Términos y Condiciones de SKY Plus y Pla | Contrato de Transporte | SKY Airline AR (EN) | Agencias de Viaje | Venta de Grupos |  |  |  | 
+FALLO abrir_calendario: TimeoutError: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("input[type=text]").nth(2)
+    - locator resolved to <input name="" readonly type="text" class="input" placeholder="" iconsta
+FALLO buscar: TimeoutError: Locator.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Buscar vuelo")
+    - locator resolved to <button small="false" class="button is-primary is-default search-
+URL final: https://www.skyairline.com/es/argentina

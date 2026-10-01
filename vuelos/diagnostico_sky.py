@@ -95,19 +95,14 @@ def busqueda_sky(contexto) -> list[str]:
         if "skyairline.com" in url and "butter-cache" not in url and "feature" not in url:
             linea = f"{resp.status} {resp.request.method} {url[:300]}"
             lineas.append("  API " + linea)
-            if url.endswith(".js") and ("flight-box" in url or "sale-core" in url):
+            if not url.endswith(".js") and (resp.request.method == "POST" or any(k in url.lower() for k in ("avail", "flight", "search", "fare", "offer"))):
                 try:
-                    (SALIDA / ("bundle_" + url.split("//")[1].split(".")[0] + ".js")).write_text(resp.text(), encoding="utf-8")
-                except Exception:  # noqa: BLE001
-                    pass
-            if resp.request.method == "POST" or any(k in url.lower() for k in ("avail", "flight", "search", "fare", "offer")):
-                try:
-                    cuerpos.append(f"### {linea}\nPETICION: {(resp.request.post_data or '')[:2000]}\nRESPUESTA: {resp.text()[:6000]}")
+                    cuerpos.append(f"### {linea}\nPETICION: {(resp.request.post_data or '')[:2000]}\nRESPUESTA: {resp.text()[:60000]}")
                 except Exception:  # noqa: BLE001
                     pass
 
+    contexto.on("response", registrar)
     pagina = contexto.new_page()
-    pagina.on("response", registrar)
 
     def paso(nombre, accion):
         try:
@@ -116,7 +111,7 @@ def busqueda_sky(contexto) -> list[str]:
             lineas.append(f"OK {nombre}")
         except Exception as e:  # noqa: BLE001
             lineas.append(f"FALLO {nombre}: {e.__class__.__name__}: {str(e)[:200]}")
-        pagina.screenshot(path=str(SALIDA / f"paso_{len(lineas):02d}_{nombre}.png"))
+        pagina.screenshot(path=str(SALIDA / f"paso_{nombre}.png"))
 
     pagina.goto("https://www.skyairline.com/argentina", wait_until="domcontentloaded", timeout=45000)
     pagina.wait_for_timeout(6000)
@@ -131,12 +126,41 @@ def busqueda_sky(contexto) -> list[str]:
         pagina.get_by_text("Aeropuerto Santiago (SCL)").first.click(timeout=8000)
 
     paso("destino", destino)
-    pagina.wait_for_timeout(2500)
-    (SALIDA / "calendario.html").write_text(pagina.content(), encoding="utf-8")
-    pagina.screenshot(path=str(SALIDA / "calendario.png"))
 
-    paso("buscar", lambda: pagina.get_by_role("button", name="Buscar vuelo").click(timeout=8000))
-    pagina.wait_for_timeout(12000)
+    def fecha():
+        dia = pagina.locator(".vc-day.id-2026-12-16 .vc-day-content").first
+        for _ in range(6):
+            if dia.is_visible():
+                break
+            pagina.locator("button.vc-next").first.click()
+            pagina.wait_for_timeout(700)
+        dia.click(timeout=5000)
+
+    paso("fecha", fecha)
+    botones = pagina.locator("button:visible").all_inner_texts()
+    lineas.append("Botones visibles: " + " | ".join(t.strip()[:30] for t in botones if t.strip())[:800])
+    for texto in ("Confirmar", "Aplicar", "Listo", "Continuar"):
+        boton = pagina.get_by_role("button", name=texto)
+        if boton.count() and boton.first.is_visible():
+            paso("confirmar_fecha", lambda: boton.first.click(timeout=5000))
+            break
+
+    def pasajeros():
+        textos.nth(3).click(timeout=5000)
+        pagina.wait_for_timeout(1500)
+        (SALIDA / "pasajeros.html").write_text(pagina.inner_html("body")[:400000], encoding="utf-8")
+
+    paso("pasajeros", pasajeros)
+    pagina.keyboard.press("Escape")
+    paso("buscar", lambda: pagina.get_by_role("button", name="Buscar vuelo").click(timeout=8000, force=True))
+    pagina.wait_for_timeout(15000)
+    for i, pg in enumerate(contexto.pages):
+        lineas.append(f"Pestaña {i}: {pg.url}")
+        try:
+            pg.screenshot(path=str(SALIDA / f"resultado_{i}.png"), full_page=True)
+            (SALIDA / f"resultado_{i}.txt").write_text(pg.inner_text("body"), encoding="utf-8")
+        except Exception as e:  # noqa: BLE001
+            lineas.append(f"  sin captura: {e.__class__.__name__}")
     lineas.append(f"URL final: {pagina.url}")
     pagina.screenshot(path=str(SALIDA / "paso_99_resultado.png"), full_page=False)
     (SALIDA / "sky_api.txt").write_text("\n\n".join(cuerpos) or "(sin respuestas)", encoding="utf-8")

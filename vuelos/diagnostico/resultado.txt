@@ -1,0 +1,86 @@
+# Búsqueda en skyairline.com
+  API 301 GET https://www.skyairline.com/argentina
+  API 200 GET https://www.skyairline.com/es/argentina
+  API 200 GET https://www.skyairline.com/sky-root-config.js
+  API 200 GET https://www.skyairline.com/ruxitagentjs_ICA15789NPRTUVXfqrux_10347260902154543.js
+  API 200 GET https://dev.visualwebsiteoptimizer.com/j.php?a=781810&u=https%3A%2F%2Fwww.skyairline.com%2Fes%2Fargentina&vn=2.1&x=true
+  API 302 GET https://www.skyairline.com/cdn-cgi/challenge-platform/scripts/jsd/main.js
+  API 200 GET https://dev.visualwebsiteoptimizer.com/collect/v.gif?cd=0&a=781810&d=skyairline.com&u=DF856C76A58C88E6BF76DFA913F8779DE&h=5e3e89470d67f4dae3a45d6917ba57fe&t=false
+  API 200 GET https://www.skyairline.com/cdn-cgi/challenge-platform/h/b/scripts/jsd/d76008a69eab/main.js?
+  API 200 POST https://www.skyairline.com/cdn-cgi/challenge-platform/h/b/jsd/oneshot/d76008a69eab/0.4886992310964171:1790885123:5EIlArff4sYLzp4PIRffC-eAwbG9Hhnd4PmF8ICJulE/a43e68f27f341039
+  API 200 GET https://flight-box.skyairline.com/js/app.407e6961.js
+  API 200 GET https://util-butter-cms.skyairline.com/js/app.3a40d2d9.js
+  API 200 GET https://util-sale-core.skyairline.com/skyairline-util-sale-core.js
+  API 200 GET https://util-chatbot-sdk.skyairline.com/skyairline-servicios-chatbot-sdk.js
+  API 200 GET https://app-retail-footer.skyairline.com/js/app.b7fc70e9.js
+  API 200 GET blob:https://www.skyairline.com/f5a21f22-8a4b-40b7-bc11-485e2ce8d449
+  API 200 GET https://app-retail-home.skyairline.com/js/app.c4d662c1.js
+  API 200 GET https://app-retail-header.skyairline.com/js/app.dccc0b65.js
+  API 200 GET https://util-business-common.skyairline.com/skyairline-util-business-common.js
+  API 200 GET https://util-business-events.skyairline.com/skyairline-util-business-events.js
+  API 200 GET https://utils-marking-google-analytics.skyairline.com/js/app.da87ed03.js
+  API 200 GET https://util-business-store.skyairline.com/js/app.51374ad9.js
+  API 200 GET https://util-registry-manager.skyairline.com/js/app.db265530.js
+  API 200 GET https://util-login-storage.skyairline.com/skyairline-util-login-store.js
+  API 200 GET https://util-login-api.skyairline.com/skyairline-util-login-api.js
+  API 200 GET https://util-desing-system.skyairline.com/skyairline-util-desing-system.js
+  API 200 GET https://app-sky-login.skyairline.com/js/app.cd0cc300.js
+  API 200 GET https://app-retail-home.skyairline.com/img/sky-title-vitrinas.a4e81eba.svg
+  API 200 GET https://unleash-proxy.skyairline.com/proxy?sessionId=619421146&appName=production&environment=default
+  API 200 GET https://ssl.google-analytics.com/r/__utm.gif?utmwv=5.7.2&utms=1&utmn=1013828920&utmhn=www.skyairline.com&utmcs=UTF-8&utmsr=1366x900&utmvp=1366x900&utmsc=24-bit&utmul=es-ar&utmje=0&utmfl=-&utmdt=SKY%20Airline%20%7C%20Encuentra%20vuelos%20baratos%20a%20los%20mejores%20destinos&utmhid=136958925&utmr=-&
+  API 204 POST https://analytics.google.com/g/collect?v=2&tid=G-MDC7SK7K95&gtm=45je69u0v9102936071z89181612144za20gzb9181612144zd9181612144xf1&_p=1790888563833&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=1193354042&_eu=AAAAAGAC&cid=1866457480.1790888565&frm=0&pscdl=noapi&rcb=8&sr=1366x900&uaa=x86&uab=64&uafvl=Headles
+  API 200 GET https://api.skyairline.com/exchange-rate/v1/currencies/conversion?currencyFrom=USD&currencyTo=PEN
+  API 200 POST https://www.google.com/ccm/collect?rcb=19&frm=0&apvc=1&ae=g&auid=1015579488.1790888566&dt=SKY%20Airline%20%7C%20Encuentra%20vuelos%20baratos%20a%20los%20mejores%20destinos&en=page_view&dl=https%3A%2F%2Fwww.skyairline.com%2Fes%2Fargentina&scrsrc=www.googletagmanager.com&rnd=91284554.1790888566&navt=n
+  API 302 GET https://15135531.fls.doubleclick.net/activityi;src=15135531;type=invmedia;cat=hpg_s0;rcb=0;ord=2186402718256;npa=0;auiddc=1015579488.1790888566;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap=Windows;uapv=10.0;uaw=0;pscdl=noa
+  API 200 GET https://connect.facebook.net/signals/config/2166829216742051?v=2.9.412&r=stable&domain=www.skyairline.com&hme=a4c28c8787325ac3f8f9eac68364f47df2a8c4266e43177443e5d7f6289c9774&ex_m=117%2C240%2C170%2C27%2C81%2C82%2C161%2C77%2C76%2C11%2C180%2C101%2C20%2C152%2C140%2C46%2C84%2C89%2C148%2C175%2C182%2C8%2C
+  API 200 POST https://www.google.com/ccm/collect?rcb=12&frm=0&apvc=0&ae=g&auid=1015579488.1790888566&dt=SKY%20Airline%20%7C%20Encuentra%20vuelos%20baratos%20a%20los%20mejores%20destinos&tid=AW-11084749483&dl=https%3A%2F%2Fwww.skyairline.com%2Fes%2Fargentina&scrsrc=www.googletagmanager.com&rnd=91284554.1790888566&
+  API 200 POST https://www.google.com/rmkt/collect/11084749483/?random=1790888566115&cv=11&fst=1790888566115&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be69u0v9118336661z89184755220za20gzb9184755220zd9181612144xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616985~115938466~115938468~118897920~118897930~120213116~120385422~12
+  API 200 GET https://googleads.g.doubleclick.net/pagead/viewthroughconversion/11084749483/?random=1790888566115&cv=11&fst=1790888566115&bg=ffffff&guid=ON&async=1&gtm=45be69u0v9118336661z89184755220za20gzb9184755220zd9181612144xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616985~115938466~115938468~118897920~118897930
+  API 200 GET https://15135531.fls.doubleclick.net/activityi;dc_pre=CJaowubbmZcDFSYTVwEdmqgDyA;src=15135531;type=invmedia;cat=hpg_s0;rcb=0;ord=2186402718256;npa=0;auiddc=1015579488.1790888566;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap
+  API 302 POST https://ad.doubleclick.net/activity;src=15135531;type=invmedia;cat=hpg_s0;rcb=0;ord=2186402718256;npa=0;auiddc=1015579488.1790888566;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap=Windows;uapv=10.0;uaw=0;pscdl=noapi;frm=0;_t
+  API 200 GET https://adservice.google.com/ddm/fls/z/dc_pre=CJaowubbmZcDFSYTVwEdmqgDyA;src=15135531;type=invmedia;cat=hpg_s0;rcb=0;ord=2186402718256;npa=0;auiddc=*;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap=Windows;uapv=10.0;uaw=0;psc
+  API 302 GET https://ad.doubleclick.net/activity;dc_pre=COSQwObbmZcDFUjdzgAdwMcmiQ;src=15135531;type=invmedia;cat=hpg_s0;rcb=0;ord=2186402718256;npa=0;auiddc=1015579488.1790888566;uaa=x86;uab=64;uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12;uamb=0;uam=;uap=Windows;ua
+  API 200 GET https://www.google.com/gmp/conversion/_dc_unique_id=9117670981581644677;_dc_ptd=ChAI8In41QYQ0dqZk8b91YVgEh8AybLYVCyMeKQDGOeMloeq30eXDbOzyBV2P9CrNihH;_dc_time=1790888566;dc_pre=COSQwObbmZcDFUjdzgAdwMcmiQ;src=15135531;type=invmedia;cat=hpg_s0;rcb=0;ord=2186402718256;npa=0;auiddc=1015579488.1790888566;
+  API 204 GET https://bat.bing.com/action/0?ti=343191373&Ver=2&mid=9da6695b-1107-4b68-8d87-ecf579766391&bo=1&sid=73c4dd00bddb11f19f622b221c20f552&vid=73c4da70bddb11f18fa1ffef0b16eba8&vids=1&msclkid=N&uach=pv%3D10.0&pi=0&lg=es-AR&sw=1366&sh=900&sc=24&nwd=1&tl=SKY%20Airline%20%7C%20Encuentra%20vuelos%20baratos%20a%
+  API 200 GET https://www.googleadservices.com/pagead/conversion/16819037882/?random=1790888566285&cv=9&fst=1790888566285&num=1&npa=1&label=h4qYCJ3sxo0aELrN-NM-&guid=ON&resp=GooglemKTybQhCsO&eid=375603260%2C466465925%2C512247838%2C658953495&u_h=900&u_w=1366&ig=1&auid=1015579488.1790888566&frm=2&url=https%3A%2F%2F
+  API 200 GET https://www.google.com/pagead/1p-user-list/11084749483/?random=1790888566115&cv=11&fst=1790888400000&bg=ffffff&guid=ON&async=1&gtm=45be69u0v9118336661z89184755220za20gzb9184755220zd9181612144xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616985~115938466~115938468~118897920~118897930~120213116~120385422~1
+  API 302 GET https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16819037882/?random=430375681&cv=9&fst=1790888566285&num=1&npa=1&label=h4qYCJ3sxo0aELrN-NM-&guid=ON&resp=GooglemKTybQhCsO&eid=375603260%2C466465925%2C512247838%2C658953495&u_h=900&u_w=1366&ig=1&auid=1015579488.1790888566&frm=2&url=http
+  API 200 GET https://www.google.com/pagead/1p-conversion/16819037882/?random=430375681&cv=9&fst=1790888566285&num=1&npa=1&label=h4qYCJ3sxo0aELrN-NM-&guid=ON&resp=GooglemKTybQhCsO&eid=375603260%2C466465925%2C512247838%2C658953495&u_h=900&u_w=1366&ig=1&auid=1015579488.1790888566&frm=2&url=https%3A%2F%2F15135531.fl
+  API 204 POST https://www.skyairline.com/cdn-cgi/rum?
+  API 200 GET https://www.skyairline.com/insider-sw.js
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=0&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=2714185685&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888566479&ss=0&qc=113766681&end=1
+  API 200 GET https://api.skyairline.com/aeropath/v1/aeropathways
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=3&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=628044356&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888566634&ss=0&qc=1418874732&end=1
+  API 200 GET https://api.skyairline.com/aeropath/v1/getRoutesList
+  API 200 POST https://unleash-proxy.skyairline.com/proxy/client/metrics
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=3&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=697242308&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888567399&ss=0&qc=1906619419&end=1
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?type=js3&sn=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&svrid=12&flavor=post&vi=AMOGVMFTAMRRPNHKHQJABRPUAPAKTICP-0&modifiedSince=1790861996970&bp=3&app=3ffffcae7723c8a2&crc=640574496&en=lxwo8d4f&e
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=1908371629&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888568503&ss=0&qc=3945243126&end=
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?type=js3&sn=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&svrid=12&flavor=post&vi=AMOGVMFTAMRRPNHKHQJABRPUAPAKTICP-0&modifiedSince=1790861996970&bp=3&app=3ffffcae7723c8a2&crc=2449966433&en=lxwo8d4f&
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?type=js3&sn=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&svrid=12&flavor=post&vi=AMOGVMFTAMRRPNHKHQJABRPUAPAKTICP-0&modifiedSince=1790861996970&bp=3&app=3ffffcae7723c8a2&crc=1768921901&en=lxwo8d4f&
+OK cerrar_aviso
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=1677619217&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888573031&ss=0&qc=4116430033&end=
+OK solo_ida
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=559179921&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888575244&ss=0&qc=239511433&end=1
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?type=js3&sn=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&svrid=12&flavor=post&vi=AMOGVMFTAMRRPNHKHQJABRPUAPAKTICP-0&modifiedSince=1790861996970&bp=3&app=3ffffcae7723c8a2&crc=2948430808&en=lxwo8d4f&
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=2170516893&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888577516&ss=0&qc=1403737861&end=
+OK destino
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=1823571629&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888579614&ss=0&qc=2803452547&end=
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=1399557337&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888582035&ss=0&qc=4142351189&end=
+FALLO fecha: TimeoutError: Locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for locator("button.vc-next:visible").first
+
+Botones visibles: Octubre
+2026 | Noviembre
+2026 | Buscar vuelo | Ver vuelos | Ver tours | VER HOTELES | Ver vuelos | Ver vuelos | Revisar más información sobre  | Descubre los destinos de SKY | Revisar información sobre pasa | Conocer la experiencia a bordo | Revisar los canales de atenció
+OK pasajeros
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?type=js3&sn=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&svrid=12&flavor=post&vi=AMOGVMFTAMRRPNHKHQJABRPUAPAKTICP-0&modifiedSince=1790861996970&bp=3&app=3ffffcae7723c8a2&crc=3870777422&en=lxwo8d4f&
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=3279481858&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888587467&ss=0&qc=1607641243&end=
+OK buscar
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?type=js3&sn=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&svrid=12&flavor=post&vi=AMOGVMFTAMRRPNHKHQJABRPUAPAKTICP-0&modifiedSince=1790861996970&bp=3&app=3ffffcae7723c8a2&crc=3561949707&en=lxwo8d4f&
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=2932221475&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888589633&ss=0&qc=3880988052&end=
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=3955535758&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888593115&ss=0&qc=3023562173&end=
+  API 200 POST https://www.skyairline.com/rb_bf75504bdm?sc=5&ty=js&pv=4&ai=3ffffcae7723c8a2&en=lxwo8d4f&cr=1790861996970&av=1.347.4&cy=event&bc=2798710700&co=snappy&si=v_4_srv_12_sn_7EE5651B91A32DADA15F142F230B291A_perc_100000_ol_0_mul_1_app-3A3ffffcae7723c8a2_1_rcs-3Acss_0&st=1790888599213&ss=0&qc=493241358&end=1
+Pestaña 0: https://www.skyairline.com/es/argentina
+URL final: https://www.skyairline.com/es/argentina

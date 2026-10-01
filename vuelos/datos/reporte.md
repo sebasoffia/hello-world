@@ -36,14 +36,14 @@ Grupo: 2 adultos + 1 niño(s). Precios en USD para **todo el grupo**, vuelos dir
 |---|---|---|---|---|
 | 2027-01-22 | Aerolineas Argentinas | 21:50 | 265 | -0% |
 | 2027-01-23 | Aerolineas Argentinas | 18:55 | 374 | +0% |
-| 2027-01-24 | Aerolineas Argentinas | 22:00 | 320 | +10% |
+| 2027-01-24 | Aerolineas Argentinas | 22:00 | 292 | +0% |
 | 2027-01-25 | Aerolineas Argentinas | 21:50 | 320 | +10% |
 | 2027-01-26 | Aerolineas Argentinas | 21:50 | 292 | +0% |
 | 2027-01-27 | Aerolineas Argentinas | 18:55 | 265 | -0% |
 | 2027-01-28 | Aerolineas Argentinas | 21:50 | 265 | -9% |
 | 2027-01-29 | Aerolineas Argentinas | 21:50 | 265 | -0% |
 | 2027-01-30 | Aerolineas Argentinas | 10:15 | 292 | +0% |
-| 2027-01-31 | Aerolineas Argentinas | 22:00 | 292 | +0% |
+| 2027-01-31 | Aerolineas Argentinas | 18:55 | 292 | +0% |
 | 2027-02-01 | Aerolineas Argentinas | 21:50 | 292 | +0% |
 | 2027-02-02 | Aerolineas Argentinas | 21:50 | 265 | -0% |
 | 2027-02-03 | Aerolineas Argentinas | 21:50 | 265 | -0% |

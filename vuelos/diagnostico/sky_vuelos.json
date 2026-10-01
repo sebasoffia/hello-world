@@ -1,0 +1,98 @@
+[
+ {
+  "fecha": "2026-12-16",
+  "desde": "AEP",
+  "hasta": "SCL",
+  "salida": "11:50",
+  "llegada": "14:10",
+  "vuelo": "H2 538",
+  "tarifas": {
+   "Basic": 436968,
+   "Light": 542832,
+   "Standard": 589539,
+   "Max": 601992,
+   "Full": 630015
+  },
+  "moneda": "CLP"
+ },
+ {
+  "fecha": "2026-12-16",
+  "desde": "EZE",
+  "hasta": "SCL",
+  "salida": "19:30",
+  "llegada": "21:55",
+  "vuelo": "H2 1821",
+  "tarifas": {
+   "Basic": 436968,
+   "Light": 542832,
+   "Standard": 589539,
+   "Max": 601992,
+   "Full": 630015
+  },
+  "moneda": "CLP"
+ },
+ {
+  "fecha": "2026-12-16",
+  "desde": "AEP",
+  "hasta": "SCL",
+  "salida": "21:30",
+  "llegada": "23:55",
+  "vuelo": "H2 536",
+  "tarifas": {
+   "Basic": 436968,
+   "Light": 542832,
+   "Standard": 589539,
+   "Max": 601992,
+   "Full": 630015
+  },
+  "moneda": "CLP"
+ },
+ {
+  "fecha": "2027-01-27",
+  "desde": "SCL",
+  "hasta": "EZE",
+  "salida": "04:50",
+  "llegada": "06:55",
+  "vuelo": "H2 1820",
+  "tarifas": {
+   "Basic": 270630,
+   "Light": 369570,
+   "Standard": 413220,
+   "Max": 424860,
+   "Full": 451050
+  },
+  "moneda": "CLP"
+ },
+ {
+  "fecha": "2027-01-27",
+  "desde": "SCL",
+  "hasta": "AEP",
+  "salida": "08:50",
+  "llegada": "11:00",
+  "vuelo": "H2 537",
+  "tarifas": {
+   "Basic": 270630,
+   "Light": 369570,
+   "Standard": 413220,
+   "Max": 424860,
+   "Full": 451050
+  },
+  "moneda": "CLP"
+ },
+ {
+  "fecha": "2027-01-27",
+  "desde": "SCL",
+  "hasta": "AEP",
+  "salida": "18:30",
+  "llegada": "20:40",
+  "vuelo": "H2 535",
+  "tarifas": {
+   "Basic": 270630,
+   "Light": 369570,
+   "Standard": 413220,
+   "Max": 424860,
+   "Full": 451050
+  },
+  "moneda": "CLP"
+ }
+]

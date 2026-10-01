@@ -1,0 +1,47 @@
+name: Prueba Sky Airline
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/vuelos-buenos-aires-santiago-z7rrto]
+    paths:
+      - "vuelos/diagnostico_sky.py"
+      - ".github/workflows/diagnostico-sky.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r vuelos/requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Probar Google Flights y skyairline.com
+        run: python vuelos/diagnostico_sky.py
+
+      - name: Guardar resultado en la rama
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          tmp="$(mktemp -d)"
+          cp -r vuelos/diagnostico/. "$tmp/" 2>/dev/null || exit 0
+          git fetch origin "${GITHUB_REF_NAME}"
+          git reset --hard "origin/${GITHUB_REF_NAME}"
+          mkdir -p vuelos/diagnostico
+          cp -r "$tmp/." vuelos/diagnostico/
+          git add vuelos/diagnostico
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Resultado de la prueba de Sky Airline"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

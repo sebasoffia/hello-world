@@ -127,32 +127,35 @@ def busqueda_sky(contexto) -> list[str]:
 
     paso("destino", destino)
 
+    def clic_en(locator):
+        for i in range(locator.count()):
+            caja = locator.nth(i).bounding_box()
+            if caja and caja["width"] > 0:
+                pagina.mouse.click(caja["x"] + caja["width"] / 2, caja["y"] + caja["height"] / 2)
+                return
+        raise RuntimeError("sin elemento visible")
+
     def fecha():
-        dia = pagina.locator(".vc-day.id-2026-12-16 .vc-day-content:visible")
-        for _ in range(6):
-            if dia.count():
+        dia = pagina.locator(".vc-day.id-2026-12-16 .vc-day-content")
+        for _ in range(4):
+            cajas = [dia.nth(i).bounding_box() for i in range(dia.count())]
+            if any(c and c["width"] > 0 for c in cajas):
                 break
-            pagina.locator("button.vc-next:visible").first.click(force=True, timeout=5000)
-            pagina.wait_for_timeout(900)
-        dia.first.click(force=True, timeout=5000)
+            pagina.mouse.click(847, 678)  # flecha "mes siguiente" del calendario
+            pagina.wait_for_timeout(1000)
+        clic_en(dia)
 
     paso("fecha", fecha)
-    botones = pagina.locator("button:visible").all_inner_texts()
-    lineas.append("Botones visibles: " + " | ".join(t.strip()[:30] for t in botones if t.strip())[:800])
-    for texto in ("Confirmar", "Aplicar", "Listo", "Continuar"):
-        boton = pagina.get_by_role("button", name=texto)
-        if boton.count() and boton.first.is_visible():
-            paso("confirmar_fecha", lambda: boton.first.click(timeout=5000))
-            break
 
     def pasajeros():
-        pagina.locator("input[type=text]:visible").last.click(force=True, timeout=5000)
+        pagina.mouse.click(1000, 446)
         pagina.wait_for_timeout(1500)
-        (SALIDA / "pasajeros.html").write_text(pagina.inner_html("body")[:400000], encoding="utf-8")
+        panel = pagina.inner_text("body")
+        i = panel.find("Adult")
+        lineas.append("Panel pasajeros: " + panel[max(0, i - 300): i + 600].replace("\n", " | "))
 
     paso("pasajeros", pasajeros)
-    pagina.keyboard.press("Escape")
-    paso("buscar", lambda: pagina.locator("button.search-button:visible").first.click(timeout=8000, force=True))
+    paso("buscar", lambda: pagina.mouse.click(1208, 444))
     pagina.wait_for_timeout(15000)
     for i, pg in enumerate(contexto.pages):
         lineas.append(f"Pestaña {i}: {pg.url}")

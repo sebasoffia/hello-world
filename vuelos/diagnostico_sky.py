@@ -85,17 +85,76 @@ def sitio_sky(contexto) -> list[str]:
     return lineas
 
 
+def busqueda_sky(contexto) -> list[str]:
+    """Llena el formulario de Sky (solo ida AEP→SCL) y registra qué API responde."""
+    lineas = []
+    cuerpos = []
+
+    def registrar(resp):
+        url = resp.url
+        if "skyairline.com" in url and "butter-cache" not in url and "feature" not in url:
+            linea = f"{resp.status} {resp.request.method} {url[:300]}"
+            lineas.append("  API " + linea)
+            if resp.request.method == "POST" or any(k in url.lower() for k in ("avail", "flight", "search", "fare", "offer")):
+                try:
+                    cuerpos.append(f"### {linea}\nPETICION: {(resp.request.post_data or '')[:2000]}\nRESPUESTA: {resp.text()[:6000]}")
+                except Exception:  # noqa: BLE001
+                    pass
+
+    pagina = contexto.new_page()
+    pagina.on("response", registrar)
+
+    def paso(nombre, accion):
+        try:
+            accion()
+            pagina.wait_for_timeout(1500)
+            lineas.append(f"OK {nombre}")
+        except Exception as e:  # noqa: BLE001
+            lineas.append(f"FALLO {nombre}: {e.__class__.__name__}: {str(e)[:200]}")
+        pagina.screenshot(path=str(SALIDA / f"paso_{len(lineas):02d}_{nombre}.png"))
+
+    pagina.goto("https://www.skyairline.com/argentina", wait_until="domcontentloaded", timeout=45000)
+    pagina.wait_for_timeout(6000)
+    paso("cerrar_aviso", lambda: pagina.get_by_text("Continuar en SKY Argentina").click(timeout=8000))
+    paso("solo_ida", lambda: pagina.get_by_text("Solo ida", exact=True).click(timeout=8000))
+    textos = pagina.locator("input[type=text]")
+
+    def destino():
+        textos.nth(1).click()
+        textos.nth(1).fill("Santiago")
+        pagina.wait_for_timeout(2000)
+        pagina.get_by_text("Santiago", exact=False).filter(has_not=pagina.locator("input")).last.click(timeout=8000)
+
+    paso("destino", destino)
+    opciones = pagina.locator("li, [role=option]").all_inner_texts()
+    lineas.append("Opciones visibles: " + " | ".join(o.strip()[:40] for o in opciones[:40]))
+
+    def fecha():
+        textos.nth(2).click()
+        pagina.wait_for_timeout(1500)
+        (SALIDA / "calendario.html").write_text(pagina.content(), encoding="utf-8")
+        dias = pagina.locator("[aria-label*='diciembre'], [aria-label*='December'], [data-date*='2026-12']")
+        lineas.append(f"Celdas de diciembre visibles: {dias.count()}")
+
+    paso("abrir_calendario", fecha)
+    paso("buscar", lambda: pagina.get_by_role("button", name="Buscar vuelo").click(timeout=8000))
+    pagina.wait_for_timeout(12000)
+    lineas.append(f"URL final: {pagina.url}")
+    pagina.screenshot(path=str(SALIDA / "paso_99_resultado.png"), full_page=False)
+    (SALIDA / "sky_api.txt").write_text("\n\n".join(cuerpos) or "(sin respuestas)", encoding="utf-8")
+    return lineas
+
+
 def main() -> int:
     from playwright.sync_api import sync_playwright
 
     SALIDA.mkdir(exist_ok=True)
     with sync_playwright() as p:
         navegador = p.chromium.launch()
-        gf = google_flights(navegador.new_page(locale="en-US"))
         contexto = navegador.new_context(locale="es-AR", user_agent=UA, viewport={"width": 1366, "height": 900})
-        sky = sitio_sky(contexto)
+        sky = busqueda_sky(contexto)
         navegador.close()
-    texto = "\n".join(["# Google Flights", *gf, "", "# skyairline.com", *sky])
+    texto = "\n".join(["# Búsqueda en skyairline.com", *sky])
     (SALIDA / "resultado.txt").write_text(texto, encoding="utf-8")
     print(texto)
     return 0

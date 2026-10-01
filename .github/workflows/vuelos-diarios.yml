@@ -1,0 +1,63 @@
+name: Búsqueda diaria de vuelos AEP-SCL
+
+on:
+  schedule:
+    # 11:23 UTC = 08:23 en Santiago (verano) / 08:23 en Buenos Aires
+    - cron: "23 11 * * *"
+  workflow_dispatch:
+  push:
+    branches: [master, claude/vuelos-buenos-aires-santiago-z7rrto]
+    paths:
+      - "vuelos/buscar_vuelos.py"
+      - "vuelos/config.json"
+      - "vuelos/requirements.txt"
+      - ".github/workflows/vuelos-diarios.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vuelos-diarios
+  cancel-in-progress: false
+
+jobs:
+  buscar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r vuelos/requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Buscar vuelos
+        run: python vuelos/buscar_vuelos.py
+
+      - name: Publicar reporte en el resumen de la ejecución
+        if: always()
+        run: |
+          if [ -f vuelos/datos/reporte.md ]; then cat vuelos/datos/reporte.md >> "$GITHUB_STEP_SUMMARY"; fi
+
+      - name: Guardar histórico en el repositorio
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Otra ejecución pudo haber guardado datos mientras esta buscaba:
+          # se parte de la última versión de la rama y gana la búsqueda más reciente.
+          tmp="$(mktemp -d)"
+          cp -r vuelos/datos/. "$tmp/"
+          git fetch origin "${GITHUB_REF_NAME}"
+          git reset --hard "origin/${GITHUB_REF_NAME}"
+          mkdir -p vuelos/datos
+          cp -r "$tmp/." vuelos/datos/
+          git add vuelos/datos
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Precios de vuelos AEP-SCL: $(date -u +%F)"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

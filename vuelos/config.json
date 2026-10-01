@@ -1,0 +1,13 @@
+{
+  "origen": "AEP",
+  "destino": "SCL",
+  "ida": { "desde": "2026-12-14", "hasta": "2026-12-22" },
+  "vuelta": { "desde": "2027-01-22", "hasta": "2027-02-05" },
+  "estadia_dias": { "min": 7, "max": 60 },
+  "pasajeros": { "adultos": 2, "ninos": 1 },
+  "equipaje": { "carry_on": 1, "despachado": 0 },
+  "solo_directos": true,
+  "pausa_segundos": 2,
+  "top_combinaciones": 10,
+  "alerta_baja_porcentaje": 10
+}

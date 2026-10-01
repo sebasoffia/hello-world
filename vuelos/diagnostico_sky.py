@@ -147,15 +147,35 @@ def busqueda_sky(contexto) -> list[str]:
 
     paso("fecha", fecha)
 
+    def sumar(etiqueta):
+        fila = pagina.get_by_text(etiqueta, exact=True).first.bounding_box()
+        botones = []
+        for b in pagina.locator("button:visible, [role=button]:visible").all():
+            caja = b.bounding_box()
+            if caja and abs((caja["y"] + caja["height"] / 2) - (fila["y"] + fila["height"] / 2)) < 30:
+                botones.append(caja)
+        lineas.append(f"Botones en fila {etiqueta}: {len(botones)}")
+        mas = max(botones, key=lambda c: c["x"])
+        pagina.mouse.click(mas["x"] + mas["width"] / 2, mas["y"] + mas["height"] / 2)
+        pagina.wait_for_timeout(500)
+
     def pasajeros():
         pagina.mouse.click(1000, 446)
         pagina.wait_for_timeout(1500)
+        sumar("Adultos")
+        sumar("Niños")
         panel = pagina.inner_text("body")
-        i = panel.find("Adult")
-        lineas.append("Panel pasajeros: " + panel[max(0, i - 300): i + 600].replace("\n", " | "))
+        i = panel.find("Adultos")
+        lineas.append("Panel pasajeros: " + panel[max(0, i - 50): i + 200].replace("\n", " | "))
+        pagina.get_by_role("button", name="Confirmar").first.click(timeout=5000)
 
     paso("pasajeros", pasajeros)
-    paso("buscar", lambda: pagina.mouse.click(1208, 444))
+    url_inicial = pagina.url
+    paso("buscar", lambda: pagina.locator("button.search-button:visible").first.click(timeout=8000))
+    for _ in range(30):
+        if pagina.url != url_inicial or len(contexto.pages) > 1:
+            break
+        pagina.wait_for_timeout(1000)
     pagina.wait_for_timeout(15000)
     for i, pg in enumerate(contexto.pages):
         lineas.append(f"Pestaña {i}: {pg.url}")

@@ -16,8 +16,9 @@ UA = (
     "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
 )
 TARIFAS = {"ZO": "Basic", "LT": "Light", "ED": "Standard", "PL": "Max", "MF": "Full"}
+MERCADO = "argentina"
 URL = (
-    "https://initial-sale.skyairline.com/es/argentina?origin={o}&destination={d}"
+    "https://initial-sale.skyairline.com/es/{m}?origin={o}&destination={d}"
     "&departureDate={f}&arrivalDate={f}&flightType=OW&ADT=2&CHD=1"
 )
 
@@ -28,7 +29,7 @@ def fechas(desde: date, hasta: date) -> list[date]:
 
 def cotizar(pagina, origen: str, destino: str, dia: date) -> list[dict]:
     with pagina.expect_response(lambda r: "farequoting/v1/search/flight" in r.url, timeout=45000) as info:
-        pagina.goto(URL.format(o=origen, d=destino, f=dia.isoformat()), wait_until="domcontentloaded")
+        pagina.goto(URL.format(m=MERCADO, o=origen, d=destino, f=dia.isoformat()), wait_until="domcontentloaded")
     datos = info.value.json()
     vuelos = []
     for itinerario in (datos.get("itineraryParts") or [[]])[0]:
@@ -50,21 +51,23 @@ def main() -> int:
     from playwright.sync_api import sync_playwright
 
     SALIDA.mkdir(exist_ok=True)
-    consultas = [("BUE", "SCL", d) for d in fechas(date(2026, 12, 14), date(2026, 12, 22))]
-    consultas += [("SCL", "BUE", d) for d in fechas(date(2027, 1, 22), date(2027, 2, 5))]
+    global MERCADO
+    consultas = [("BUE", "SCL", date(2026, 12, 16)), ("SCL", "BUE", date(2027, 1, 27))]
     vuelos, lineas = [], []
     with sync_playwright() as p:
         navegador = p.chromium.launch()
         contexto = navegador.new_context(locale="es-AR", user_agent=UA, viewport={"width": 1366, "height": 900})
         pagina = contexto.new_page()
-        for origen, destino, dia in consultas:
+        for mercado, origen, destino, dia in [(m, *c) for m in ("estados-unidos", "chile", "us", "en/united-states") for c in consultas]:
+            MERCADO = mercado
+            lineas.append(f"Mercado {mercado}")
             try:
                 encontrados = cotizar(pagina, origen, destino, dia)
                 vuelos += encontrados
                 lineas.append(f"OK {origen}-{destino} {dia}: {len(encontrados)} vuelos")
             except Exception as e:  # noqa: BLE001
                 lineas.append(f"FALLO {origen}-{destino} {dia}: {e.__class__.__name__}: {str(e)[:200]}")
-                pagina.screenshot(path=str(SALIDA / f"fallo_{origen}_{dia}.png"))
+                pagina.screenshot(path=str(SALIDA / f"fallo_{mercado.replace('/', '_')}_{origen}.png"))
             pagina.wait_for_timeout(1500)
         try:
             cambio = pagina.request.get(

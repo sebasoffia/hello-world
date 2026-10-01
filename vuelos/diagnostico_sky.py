@@ -128,13 +128,13 @@ def busqueda_sky(contexto) -> list[str]:
     paso("destino", destino)
 
     def fecha():
-        dia = pagina.locator(".vc-day.id-2026-12-16 .vc-day-content").first
+        dia = pagina.locator(".vc-day.id-2026-12-16 .vc-day-content:visible")
         for _ in range(6):
-            if dia.is_visible():
+            if dia.count():
                 break
-            pagina.locator("button.vc-next").first.click()
-            pagina.wait_for_timeout(700)
-        dia.click(timeout=5000)
+            pagina.locator("button.vc-next:visible").first.click(force=True, timeout=5000)
+            pagina.wait_for_timeout(900)
+        dia.first.click(force=True, timeout=5000)
 
     paso("fecha", fecha)
     botones = pagina.locator("button:visible").all_inner_texts()
@@ -146,13 +146,13 @@ def busqueda_sky(contexto) -> list[str]:
             break
 
     def pasajeros():
-        textos.nth(3).click(timeout=5000)
+        pagina.locator("input[type=text]:visible").last.click(force=True, timeout=5000)
         pagina.wait_for_timeout(1500)
         (SALIDA / "pasajeros.html").write_text(pagina.inner_html("body")[:400000], encoding="utf-8")
 
     paso("pasajeros", pasajeros)
     pagina.keyboard.press("Escape")
-    paso("buscar", lambda: pagina.get_by_role("button", name="Buscar vuelo").click(timeout=8000, force=True))
+    paso("buscar", lambda: pagina.locator("button.search-button:visible").first.click(timeout=8000, force=True))
     pagina.wait_for_timeout(15000)
     for i, pg in enumerate(contexto.pages):
         lineas.append(f"Pestaña {i}: {pg.url}")

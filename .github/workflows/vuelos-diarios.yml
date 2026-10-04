@@ -1,4 +1,5 @@
 name: Búsqueda diaria de vuelos AEP-SCL
+# Ejecución manual del 2026-10-04 desde la rama de trabajo.
 
 on:
   schedule:

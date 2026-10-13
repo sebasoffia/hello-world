@@ -1,4 +1,4 @@
-# Vuelos AEP ⇄ SCL — consulta del 2026-10-12
+# Vuelos AEP ⇄ SCL — consulta del 2026-10-13
 
 Grupo: 2 adultos + 1 niño(s). Precios en USD para **todo el grupo**, vuelos directos, con carry-on incluido (carry_on=1, despachado=0).
 
@@ -6,43 +6,38 @@ Grupo: 2 adultos + 1 niño(s). Precios en USD para **todo el grupo**, vuelos dir
 
 | # | Ida | Vuelta | Días | Total USD | Por persona |
 |---|---|---|---|---|---|
-| 1 | 2026-12-15 07:00 (Aerolineas Argentinas) | 2027-01-27 21:50 (Aerolineas Argentinas) | 43 | 771 | 257 |
-| 2 | 2026-12-16 18:35 (Aerolineas Argentinas) | 2027-01-27 21:50 (Aerolineas Argentinas) | 42 | 771 | 257 |
-| 3 | 2026-12-17 07:00 (Aerolineas Argentinas) | 2027-01-27 21:50 (Aerolineas Argentinas) | 41 | 771 | 257 |
-| 4 | 2026-12-18 12:20 (Aerolineas Argentinas) | 2027-01-27 21:50 (Aerolineas Argentinas) | 40 | 809 | 269 |
-| 5 | 2026-12-20 07:00 (Aerolineas Argentinas) | 2027-01-27 21:50 (Aerolineas Argentinas) | 38 | 809 | 269 |
-| 6 | 2026-12-22 07:00 (Aerolineas Argentinas) | 2027-01-27 21:50 (Aerolineas Argentinas) | 36 | 809 | 269 |
-| 7 | 2026-12-21 07:00 (Aerolineas Argentinas) | 2027-01-27 21:50 (Aerolineas Argentinas) | 37 | 847 | 282 |
+| 1 | 2026-12-15 07:00 (Aerolineas Argentinas) | 2027-02-05 21:50 (Aerolineas Argentinas) | 52 | 772 | 257 |
+| 2 | 2026-12-16 18:35 (Aerolineas Argentinas) | 2027-02-05 21:50 (Aerolineas Argentinas) | 51 | 772 | 257 |
+| 3 | 2026-12-17 07:00 (Aerolineas Argentinas) | 2027-02-05 21:50 (Aerolineas Argentinas) | 50 | 772 | 257 |
+| 4 | 2026-12-14 18:35 (Aerolineas Argentinas) | 2027-02-05 21:50 (Aerolineas Argentinas) | 53 | 810 | 270 |
+| 5 | 2026-12-18 12:20 (Aerolineas Argentinas) | 2027-02-05 21:50 (Aerolineas Argentinas) | 49 | 810 | 270 |
+| 6 | 2026-12-22 07:00 (Aerolineas Argentinas) | 2027-02-05 21:50 (Aerolineas Argentinas) | 45 | 810 | 270 |
 
 ## Precio más bajo por día — ida
 
 | Fecha | Aerolínea | Hora | Total USD | vs. ayer |
 |---|---|---|---|---|
-| 2026-12-15 | Aerolineas Argentinas | 07:00 | 503 | +1% |
-| 2026-12-16 | Aerolineas Argentinas | 18:35 | 503 | +0% |
-| 2026-12-17 | Aerolineas Argentinas | 07:00 | 503 | +0% |
-| 2026-12-18 | Aerolineas Argentinas | 12:20 | 541 | +0% |
-| 2026-12-20 | Aerolineas Argentinas | 07:00 | 541 | -7% |
-| 2026-12-21 | Aerolineas Argentinas | 07:00 | 579 | +7% |
-| 2026-12-22 | Aerolineas Argentinas | 07:00 | 541 | +0% |
+| 2026-12-14 | Aerolineas Argentinas | 18:35 | 542 | — |
+| 2026-12-15 | Aerolineas Argentinas | 07:00 | 504 | +0% |
+| 2026-12-16 | Aerolineas Argentinas | 18:35 | 504 | +0% |
+| 2026-12-17 | Aerolineas Argentinas | 07:00 | 504 | +0% |
+| 2026-12-18 | Aerolineas Argentinas | 12:20 | 542 | +0% |
+| 2026-12-22 | Aerolineas Argentinas | 07:00 | 542 | +0% |
 
 ## Precio más bajo por día — vuelta
 
 | Fecha | Aerolínea | Hora | Total USD | vs. ayer |
 |---|---|---|---|---|
-| 2027-01-22 | Aerolineas Argentinas | 21:50 | 295 | — |
-| 2027-01-23 | Aerolineas Argentinas | 18:55 | 378 | -7% |
-| 2027-01-24 | Aerolineas Argentinas | 22:00 | 323 | -0% |
-| 2027-01-25 | Aerolineas Argentinas | 21:50 | 295 | -2% |
-| 2027-01-26 | LATAM | 17:28 | 330 | +25% |
-| 2027-01-27 | Aerolineas Argentinas | 21:50 | 268 | -0% |
-| 2027-01-28 | Aerolineas Argentinas | 21:50 | 295 | -0% |
-| 2027-01-29 | Aerolineas Argentinas | 10:15 | 378 | -0% |
-| 2027-01-31 | Aerolineas Argentinas | 22:00 | 295 | — |
-| 2027-02-02 | Aerolineas Argentinas | 21:50 | 268 | -0% |
-| 2027-02-03 | Aerolineas Argentinas | 21:50 | 295 | — |
-| 2027-02-04 | Aerolineas Argentinas | 21:50 | 295 | — |
-| 2027-02-05 | Aerolineas Argentinas | 21:50 | 268 | -9% |
+| 2027-01-22 | Aerolineas Argentinas | 21:50 | 295 | +0% |
+| 2027-01-24 | Aerolineas Argentinas | 18:55 | 378 | +17% |
+| 2027-01-25 | JetSMART | 07:23 | 384 | +30% |
+| 2027-01-26 | LATAM | 17:28 | 330 | +0% |
+| 2027-01-28 | Aerolineas Argentinas | 21:50 | 295 | +0% |
+| 2027-01-30 | Aerolineas Argentinas | 10:15 | 378 | — |
+| 2027-01-31 | Aerolineas Argentinas | 18:55 | 378 | +28% |
+| 2027-02-02 | Aerolineas Argentinas | 10:15 | 378 | +41% |
+| 2027-02-04 | Aerolineas Argentinas | 21:50 | 295 | +0% |
+| 2027-02-05 | Aerolineas Argentinas | 21:50 | 268 | +0% |
 
 ## Alertas de baja de precio
 

@@ -1,0 +1,918 @@
+<title>Radar de Licitaciones</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: expediente de licitación — barra de navegación fija, feed en grilla de fichas, ficha detalle en dos columnas (brief + análisis). */
+:root{
+  --bg:#EEF1F5; --surface:#FFFFFF; --surface-2:#F6F8FB; --ink:#101A2B; --muted:#5A6577; --line:#D7DEE8;
+  --accent:#2747D9; --accent-soft:#E3E8FD; --accent-ink:#FFFFFF;
+  --ok:#137A4B; --ok-soft:#DDF3E8; --warn:#9A5B00; --warn-soft:#FDEFD6; --crit:#B4231C; --crit-soft:#FBE1DF;
+  --font-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body:"Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1220; --surface:#141C2E; --surface-2:#1A2338; --ink:#E7ECF5; --muted:#9AA6BA; --line:#2A3550;
+  --accent:#7D95FF; --accent-soft:#1F2A52; --accent-ink:#0C1220;
+  --ok:#5FD49B; --ok-soft:#123227; --warn:#F2B451; --warn-soft:#3A2A0E; --crit:#FF8A80; --crit-soft:#3D1715;
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0C1220; --surface:#141C2E; --surface-2:#1A2338; --ink:#E7ECF5; --muted:#9AA6BA; --line:#2A3550;
+  --accent:#7D95FF; --accent-soft:#1F2A52; --accent-ink:#0C1220;
+  --ok:#5FD49B; --ok-soft:#123227; --warn:#F2B451; --warn-soft:#3A2A0E; --crit:#FF8A80; --crit-soft:#3D1715;
+  color-scheme:dark;}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:1.35rem;font-weight:700}
+h3{font-size:1.05rem;font-weight:700}
+p{margin:0}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+a{color:var(--accent)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:1.15rem;text-decoration:none;color:var(--ink)}
+.brand svg{flex:none}
+.nav{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.nav a{padding:7px 12px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:600;font-size:.9rem}
+.nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.country{display:flex;align-items:center;gap:8px}
+select,input,textarea{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+textarea{resize:vertical}
+.country select{width:auto}
+
+.demo-band{background:var(--warn-soft);color:var(--warn);font-size:.85rem}
+.demo-band .wrap{padding-block:8px}
+
+main{padding-block:28px 64px}
+.view{display:grid;gap:24px}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 14px;font-weight:600;cursor:pointer;text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* chips y estados */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.8rem;padding:3px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);font-weight:500}
+.pill{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.crit{background:var(--crit-soft);color:var(--crit)}
+.pill.info{background:var(--accent-soft);color:var(--accent)}
+.pill.neutral{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+
+/* encabezado feed */
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px;align-items:end}
+.hero p{max-width:60ch}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.stat{background:var(--surface);padding:12px 14px}
+.stat b{display:block;font-family:var(--font-display);font-size:1.6rem;font-weight:800}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.toolbar .chip{cursor:pointer}
+.toolbar .chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+/* tarjetas de licitación */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);display:grid;grid-template-rows:auto auto 1fr auto;gap:12px;padding:16px;cursor:pointer;text-align:left;transition:border-color .15s, transform .15s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card-co{font-size:.85rem;color:var(--muted)}
+.card h3{margin-top:2px}
+.keyrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-top:1px dashed var(--line);padding-top:12px}
+.keyrow div{min-width:0}
+.keyrow b{display:block;font-family:var(--font-mono);font-size:.92rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bar.crit i{background:var(--crit)}
+.bar.warn i{background:var(--warn)}
+.flag{font-size:1.1rem;line-height:1}
+
+/* ficha detalle */
+.back{display:inline-flex;gap:6px;align-items:center;color:var(--muted);text-decoration:none;font-weight:600;font-size:.9rem}
+.dossier{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:16px;min-width:0}
+.folio{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;font-family:var(--font-mono);font-size:.78rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:12px}
+.big3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.big3 div{background:var(--surface-2);border-radius:8px;padding:12px;min-width:0}
+.big3 b{display:block;font-family:var(--font-display);font-size:1.3rem;font-weight:800;line-height:1.2}
+.big3 small{color:var(--muted);font-size:.8rem}
+.section{display:grid;gap:8px}
+.checklist{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.checklist li{display:flex;gap:8px;align-items:flex-start}
+.checklist li::before{content:"";flex:none;width:16px;height:16px;margin-top:3px;border-radius:4px;border:1.5px solid var(--ok);background:linear-gradient(var(--ok),var(--ok)) center/8px 8px no-repeat}
+.alerts{display:grid;gap:8px}
+.alert{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:8px;background:var(--warn-soft);color:var(--warn);font-size:.9rem}
+.alert.crit{background:var(--crit-soft);color:var(--crit)}
+.alert b{font-weight:700}
+.rows{display:grid;gap:0}
+.rows div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.rows div:last-child{border-bottom:0}
+.rows span:last-child{font-family:var(--font-mono);font-variant-numeric:tabular-nums;text-align:right}
+.meter{display:grid;gap:6px}
+.copybox{display:flex;gap:8px;align-items:center;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.copybox code{flex:1;min-width:0;overflow-wrap:anywhere;font-family:var(--font-mono);font-size:.9rem;user-select:all}
+.note{font-size:.82rem;color:var(--muted)}
+
+/* formulario de publicación */
+.steps{display:flex;gap:8px;flex-wrap:wrap;list-style:none;padding:0;margin:0}
+.steps li{display:flex;gap:8px;align-items:center;padding:6px 12px 6px 6px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-weight:600;font-size:.88rem}
+.steps li span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--surface-2);font-family:var(--font-mono);font-size:.8rem}
+.steps li[aria-current="step"]{color:var(--accent);border-color:var(--accent)}
+.steps li[aria-current="step"] span{background:var(--accent);color:var(--accent-ink)}
+.steps li.done span{background:var(--ok);color:var(--accent-ink)}
+.choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.choice{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:16px;text-align:left;cursor:pointer;display:grid;gap:6px}
+.choice[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.choice svg{color:var(--accent)}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{display:grid;gap:5px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-weight:600;font-size:.88rem}
+.field .hint{font-size:.8rem;color:var(--muted)}
+.field.missing input,.field.missing textarea,.field.missing select{border-color:var(--warn);background:var(--warn-soft)}
+.inline{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr) minmax(0,1fr);gap:8px}
+.toggle-chips .chip{cursor:pointer}
+.toggle-chips .chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.actions{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
+.drop{border:1.5px dashed var(--line);border-radius:var(--r);padding:20px;text-align:center;display:grid;gap:8px;background:var(--surface-2)}
+.radio-row{display:flex;gap:12px;flex-wrap:wrap}
+.radio-row label{display:flex;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;background:var(--surface)}
+.radio-row input{width:auto}
+
+/* agencias */
+.agency{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px;align-content:start}
+.agency-head{display:flex;gap:12px;align-items:center}
+.avatar{flex:none;width:42px;height:42px;border-radius:10px;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;background:var(--accent-soft);color:var(--accent)}
+.source{display:flex;gap:6px;align-items:center;font-size:.8rem;color:var(--muted)}
+.funnel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.funnel .panel{gap:6px;padding:14px}
+.funnel b{font-family:var(--font-display);font-size:1rem}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-weight:600;z-index:20;max-width:calc(100% - 32px)}
+
+@media (max-width:820px){
+  .hero,.dossier{grid-template-columns:1fr}
+  .choices,.funnel{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .form{grid-template-columns:1fr}
+  .choices,.funnel{grid-template-columns:1fr}
+  .big3,.keyrow{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:1fr}
+  .inline{grid-template-columns:1fr 1fr}
+  .stats b{font-size:1.3rem}
+}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#feed" aria-label="Radar de Licitaciones, inicio">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12.5" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="14" cy="14" r="7" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity=".55"/><path d="M14 14 L23 6" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/><circle cx="19" cy="18" r="2.2" fill="var(--crit)"/></svg>
+      Radar
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#feed" data-nav="feed">Licitaciones</a>
+      <a href="#publicar" data-nav="publicar">Publicar licitación</a>
+      <a href="#agencias" data-nav="agencias">Agencias</a>
+    </nav>
+    <div class="country">
+      <label class="label" for="pais">País</label>
+      <select id="pais"></select>
+    </div>
+  </div>
+</header>
+<div class="demo-band"><div class="wrap">Prototipo para validar el diseño. Las licitaciones de KSB Chile, SCHOPDOG, Garanty Seguros y la búsqueda B2B/minería son reales (posts públicos de LinkedIn), igual que las agencias que comentaron en ellos. Las de México, Perú y Argentina y el resto de agencias son ejemplos ficticios. Nada de lo que hagas aquí se guarda ni se envía.</div></div>
+
+<main class="wrap">
+  <section class="view" id="view-feed"></section>
+  <section class="view" id="view-detalle" hidden></section>
+  <section class="view" id="view-publicar" hidden></section>
+  <section class="view" id="view-agencias" hidden></section>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ---------- Datos de referencia ---------- */
+const PAISES = {
+  TODOS:{n:"Todos los países", f:"🌎"},
+  CL:{n:"Chile", f:"🇨🇱"}, AR:{n:"Argentina", f:"🇦🇷"}, MX:{n:"México", f:"🇲🇽"},
+  CO:{n:"Colombia", f:"🇨🇴"}, PE:{n:"Perú", f:"🇵🇪"}
+};
+// Tipos de cambio referenciales para comparar entre países (se actualizarían a diario en el MVP)
+const TC = { UF:{clp:41274}, CLP_USD:950, MXN_USD:18.5, COP_USD:4000, PEN_USD:3.75, ARS_USD:1150 };
+const SERVICIOS = ["Publicidad digital","Contenidos","Redes sociales","Lead generation","SEO","Branding","Influencers","Email / CRM","Web","Diseño","Producción audiovisual","PR"];
+const MESES = {enero:1,febrero:2,marzo:3,abril:4,mayo:5,junio:6,julio:7,agosto:8,septiembre:9,setiembre:9,octubre:10,noviembre:11,diciembre:12};
+const MES_CORTO = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+
+let licitaciones = [
+  {
+    id:"ksb", real:true, pais:"CL", empresa:"KSB Chile S.A.", industria:"Industrial / B2B",
+    titulo:"Agencia de marketing digital para 2027",
+    objetivo:"Potenciar la presencia en línea durante 2027 con una agencia de marketing digital.",
+    servicios:["Publicidad digital","Contenidos","Redes sociales","Lead generation"],
+    presupuesto:{monto:720, moneda:"UF", periodo:"año"},
+    medios:"Capacidad de gestionar 50+ UF/mes en medios digitales",
+    publicacion:"2026-11-05", cierre:"2026-11-16", vigencia:"12 meses + 2 opciones de prórroga",
+    equipo:7,
+    requisitos:["Mínimo 5 años de experiencia demostrada","Certificaciones Google Partners, Meta Business Partner y HubSpot","Equipo dedicado de 7+ profesionales (no exclusivos)","Track record de ROI superior a 150%","Experiencia con empresas industriales/B2B","Referencias verificables de 3+ clientes","Sistema de medición de KPIs documentado"],
+    certs:["Google Partner","Meta Business Partner","HubSpot"],
+    entregables:[], criterios:[], exito:["ROI superior a 150%"],
+    dudas:["No dice si los 60 UF/mes de fee incluyen la pauta (50+ UF/mes) o si se pagan aparte."],
+    postular:{tipo:"email", valor:"cl.ksb@ksb.com", instruccion:"Enviar un correo solicitando las bases. KSB registra a las agencias interesadas y envía la documentación detallada."},
+    fuente:{tipo:"LinkedIn", detalle:"Post público de la Gerencia de Marketing de KSB Chile, cargado manualmente desde un pantallazo"},
+    comentarios:34, interesadas:0
+  },
+  {
+    id:"schopdog", real:true, pais:"CL", empresa:"Restaurantes SCHOPDOG (rap)", industria:"Gastronomía · 4 marcas",
+    titulo:"Agencia integral de marketing para cuatro marcas de restaurantes",
+    objetivo:"Servicios integrales de marketing y comunicación para las cuatro marcas de la cadena.",
+    servicios:["Redes sociales","Contenidos","Diseño","Publicidad digital","Producción audiovisual","Influencers"],
+    presupuesto:{monto:null, moneda:"CLP", periodo:"mes"},
+    medios:"La inversión publicitaria se considera y cobra por separado",
+    publicacion:"2026-11-05", cierre:"", vigencia:"",
+    equipo:null,
+    requisitos:["Adaptar contenidos a la identidad visual de cada una de las 4 marcas","Experiencia en el rubro gastronómico (influencers)"],
+    certs:[],
+    entregables:["Planificación mensual de contenidos y grilla de publicaciones","Redacción de copies","Programación y publicación en Instagram","Piezas gráficas mensuales: posts, carruseles, historias y reels","Hasta 2 campañas mensuales en Meta Ads con segmentación geográfica","1 jornada mensual de grabación en un restaurante de la cadena","Búsqueda y coordinación de colaboraciones mensuales con influencers","Reporte mensual de resultados (redes y Meta Ads)"],
+    criterios:[], exito:[],
+    dudas:["No indica presupuesto. Para 4 marcas con este alcance, conviene pedir un rango antes de cotizar.","No indica fecha límite para enviar propuestas."],
+    postular:{tipo:"email", valor:"comercial@rap.cl", instruccion:"Las agencias interesadas deben escribir al correo comercial de la empresa."},
+    fuente:{tipo:"LinkedIn", detalle:"Post público de la página de la empresa, cargado manualmente desde un pantallazo"},
+    comentarios:null, interesadas:0
+  },
+  {
+    id:"garanty", real:true, pais:"CO", empresa:"Garanty Seguros", industria:"Seguros / B2B",
+    titulo:"Marketing digital integral B2B para tres líneas de negocio",
+    objetivo:"Generar prospectos calificados y oportunidades comerciales B2B, y construir autoridad de marca en tres líneas de negocio.",
+    servicios:["Publicidad digital","Lead generation","Contenidos","Branding"],
+    presupuesto:{monto:5000000, moneda:"COP", periodo:"mes", incluyeMedios:true},
+    medios:"El presupuesto incluye honorarios de agencia e inversión en medios",
+    publicacion:"2026-10-31", cierre:"", vigencia:"",
+    equipo:null,
+    requisitos:["Experiencia en estrategias de captación y conversión de prospectos B2B","Campañas en Meta Ads, Google Ads y LinkedIn","Capacidad de medir, experimentar y optimizar"],
+    certs:[],
+    entregables:["Estrategia integral de marketing digital","Contenido especializado para públicos empresariales","Campañas de adquisición y generación de leads","Estrategia de segmentación, captación y conversión B2B","Medición, análisis de indicadores y propuestas de optimización"],
+    criterios:[], exito:["Prospectos calificados","Oportunidades comerciales","Costo de adquisición","Conversión","Crecimiento de marca"],
+    dudas:["El tope de 5 M COP/mes incluye pauta en tres canales y tres líneas: la porción para honorarios será baja. Conviene proponer cómo dividirlo."],
+    postular:{tipo:"email", valor:"gerencia@garantyseguros.com", instruccion:"Escribir a la gerencia de la empresa para conversar."},
+    fuente:{tipo:"LinkedIn", detalle:"Post público, cargado manualmente desde pantallazos"},
+    comentarios:39, interesadas:0
+  },
+  {
+    id:"b2b-mineria", real:true, pais:"CL", paisProbable:true, empresa:"Empresa B2B / minería (sin nombre)", industria:"B2B · Minería",
+    titulo:"Agencias con experiencia B2B o en el sector minero",
+    objetivo:"Encontrar agencias con experiencia comprobada en B2B o minería para redes, publicidad, audiovisual y web.",
+    servicios:["Redes sociales","Publicidad digital","Producción audiovisual","Web"],
+    presupuesto:{monto:null, moneda:"CLP", periodo:"mes"},
+    medios:"", publicacion:"2026-10-30", cierre:"", vigencia:"", equipo:null,
+    requisitos:["Experiencia comprobada en empresas B2B y/o sector minero"],
+    certs:[],
+    entregables:["Planificación y grilla de contenidos para redes","Gestión y optimización de campañas digitales","Producción y edición de videos y TikToks","Optimización y mejora del sitio web"],
+    criterios:[], exito:[],
+    dudas:["No se indica la empresa: la publicó una profesional de marketing en su perfil personal.","País probable: Chile (sector minero y agencias que respondieron). Falta confirmarlo.","Los comentarios del post ya están cerrados."],
+    postular:{tipo:"otro", valor:"Mensaje directo en LinkedIn", instruccion:"Se pidió escribir por mensaje directo a la autora del post. Los comentarios ya están cerrados."},
+    fuente:{tipo:"LinkedIn", detalle:"Post público en un perfil personal, cargado manualmente desde pantallazos"},
+    comentarios:162, interesadas:0
+  },
+  {
+    id:"farma-mx", real:false, pais:"MX", empresa:"Cadena de farmacias (ejemplo)", industria:"Retail / Salud",
+    titulo:"Performance y CRM para ventas en ecommerce",
+    objetivo:"Aumentar 30% las ventas online y la recompra de clientes registrados.",
+    servicios:["Publicidad digital","Email / CRM"],
+    presupuesto:{monto:180000, moneda:"MXN", periodo:"mes"},
+    medios:"Pauta de 1,2 M MXN/mes, pagada directamente por el cliente",
+    publicacion:"2026-11-02", cierre:"2026-11-28", vigencia:"6 meses", equipo:4,
+    requisitos:["Experiencia en retail o farma","Google Partner Premier","Casos con ROAS documentado"],
+    certs:["Google Partner"],
+    entregables:["Plan de medios mensual","Dashboard semanal de ROAS","4 flujos de email automatizados"],
+    criterios:["Propuesta estratégica 40%","Experiencia 30%","Precio 30%"], exito:[],
+    dudas:[], postular:{tipo:"plataforma"}, fuente:{tipo:"Ejemplo", detalle:"Licitación ficticia para el prototipo"}, interesadas:0
+  },
+  {
+    id:"uni-pe", real:false, pais:"PE", empresa:"Universidad privada (ejemplo)", industria:"Educación",
+    titulo:"Captación de postulantes para admisión 2027",
+    objetivo:"Generar 8.000 leads calificados para pregrado.",
+    servicios:["Publicidad digital","SEO","Contenidos","Lead generation"],
+    presupuesto:{monto:30000, moneda:"PEN", periodo:"mes"},
+    medios:"Pauta incluida en el presupuesto", publicacion:"2026-11-04", cierre:"2026-12-02", vigencia:"12 meses", equipo:4,
+    requisitos:["Experiencia en educación superior","Integración con CRM de admisiones"],
+    certs:["Google Partner","HubSpot"],
+    entregables:["Landing pages por carrera","Reporte quincenal de leads"],
+    criterios:["Costo por lead propuesto 50%","Experiencia 50%"], exito:[],
+    dudas:[], postular:{tipo:"plataforma"}, fuente:{tipo:"Ejemplo", detalle:"Licitación ficticia para el prototipo"}, interesadas:0
+  },
+  {
+    id:"alimentos-ar", real:false, pais:"AR", empresa:"Marca de alimentos (ejemplo)", industria:"Consumo masivo",
+    titulo:"Gestión de redes y contenido always-on",
+    objetivo:"Crecer la comunidad en Instagram y TikTok con contenido semanal.",
+    servicios:["Redes sociales","Contenidos","Influencers"],
+    presupuesto:{monto:4500, moneda:"USD", periodo:"mes"},
+    medios:"", publicacion:"2026-10-28", cierre:"2026-11-12", vigencia:"12 meses", equipo:3,
+    requisitos:["Portafolio en consumo masivo","Producción audiovisual propia"],
+    certs:[],
+    entregables:["20 piezas mensuales","Reporte mensual"],
+    criterios:[], exito:[], dudas:[], postular:{tipo:"plataforma"}, fuente:{tipo:"Ejemplo", detalle:"Licitación ficticia para el prototipo"}, interesadas:0
+  }
+];
+
+// Agencias reales: solo datos de empresa que ellas mismas publicaron al comentar (nombre, web, servicios). Sin datos personales.
+let agencias = [
+  {n:"Agencia Yellow", real:true, pais:"CL", web:"agenciayellow.cl", servicios:[], certs:[], equipo:null, fuente:"Comentario en licitación", comento:["ksb"]},
+  {n:"Infinitus Digital", real:true, pais:"CL", web:"", servicios:["Publicidad digital","Contenidos"], certs:[], equipo:null, fuente:"Comentario en licitación", comento:["schopdog"]},
+  {n:"Kodkod", real:true, pais:"CL", otrosPaises:["PE"], web:"kodkod.tech", servicios:["Contenidos","Diseño","Producción audiovisual","Publicidad digital","Web","Email / CRM","Lead generation"], certs:[], equipo:null, fuente:"Comentario en licitación", comento:["schopdog","garanty","b2b-mineria"]},
+  {n:"Comunícalo", real:true, pais:"CL", web:"mktcomunicalo.com", servicios:["Redes sociales","Publicidad digital"], certs:[], equipo:null, fuente:"Comentario en licitación", comento:["b2b-mineria"]},
+  {n:"Estudio Picnic", real:true, pais:"CL", web:"", servicios:[], certs:[], equipo:null, fuente:"Recomendada en comentarios", comento:["schopdog"]},
+  {n:"Faro Digital", pais:"CL", servicios:["Publicidad digital","Lead generation","Contenidos","Redes sociales"], certs:["Google Partner","Meta Business Partner","HubSpot"], equipo:12, fuente:"Directorio de partners", comento:[]},
+  {n:"Andes Performance", pais:"CL", servicios:["Publicidad digital","SEO","Web"], certs:["Google Partner","Meta Business Partner","HubSpot"], equipo:9, fuente:"Registro propio", comento:[]},
+  {n:"Cuadrante Media", pais:"MX", servicios:["Publicidad digital","Email / CRM","Redes sociales"], certs:["Google Partner","Meta Business Partner"], equipo:20, fuente:"Gremio", comento:[]},
+  {n:"Selva Studio", pais:"CO", servicios:["Branding","Influencers","Redes sociales"], certs:["Meta Business Partner"], equipo:7, fuente:"Directorio de partners", comento:[]},
+  {n:"Puerto Norte", pais:"PE", servicios:["SEO","Contenidos","Publicidad digital"], certs:["Google Partner","HubSpot"], equipo:6, fuente:"Registro propio", comento:[]},
+  {n:"Ochava", pais:"AR", servicios:["Redes sociales","Contenidos","Influencers"], certs:[], equipo:5, fuente:"Gremio", comento:[]}
+];
+
+const SCHOPDOG_TEXTO = `📣 Comunidad, estamos buscando una agencia digital que pueda brindar servicios integrales de marketing y comunicación para nuestras cuatro marcas, considerando las siguientes funciones:
+
+1. Desarrollos de Redes Sociales
+Planificación mensual de contenidos.
+Creación de grilla de publicaciones.
+Redacción de copies.
+Programación y publicación de contenidos en Instagram.
+Revisión de redes sociales y reporte mensual de resultados.
+2. Dirección de Arte y Diseño
+Desarrollo de piezas gráficas mensuales: posts, carruseles, historias y reels.
+Adaptación de los contenidos a la identidad visual y lineamientos de cada marca.
+3. Meta Ads
+Configuración y administración de hasta 2 campañas mensuales.
+Segmentación geográfica.
+Monitoreo y optimización de campañas.
+Reporte mensual de resultados.
+La inversión publicitaria será considerada y cobrada por separado.
+4. Creación de Contenido (Content)
+Grabación y edición de contenido audiovisual para redes sociales (se debe considerar una jornada mensual de grabación en alguno de los restaurantes de la cadena)
+5. Gestión de Influencers
+Búsqueda de influencers del rubro gastronómico.
+Contacto, negociación y coordinación de colaboraciones mensuales.
+
+✨ Reales interesad@s enviar correo a comercial@rap.cl`;
+const EJEMPLOS = {ksb:{n:"KSB Chile", t:null}, schopdog:{n:"SCHOPDOG", t:null}};
+const KSB_TEXTO = `🚀 Licitación Abierta: Agencia de Marketing Digital en KSB Chile S.A.
+Estamos buscando una agencia de marketing digital de clase mundial para potenciar nuestra presencia en línea durante 2027.
+
+¿Qué buscamos? Equipo especializado en publicidad digital (SEM), marketing de contenidos, gestión de redes sociales y lead generation con:
+
+Mínimo 5 años de experiencia demostrada
+Certificaciones Google Partners, Meta Business Partner, HubSpot
+Equipo dedicado de 7+ profesionales (no exclusivos)
+Track record de ROI superior a 150%
+
+Detalles de la licitación:
+📅 Publicación: 5 de noviembre 2026
+📋 Plazo presentación: 16 de noviembre 2026
+💰 Presupuesto base: 720 UF/año
+⏱️ Vigencia: 12 meses + 2 opciones de prórroga
+
+Requisitos clave:
+✅ Experiencia con empresas industriales/B2B
+✅ Referencias verificables de 3+ clientes
+✅ Capacidad de gestionar 50+ UF/mes en medios digitales
+✅ Sistema de medición de KPIs documentado
+
+¿Interesado en participar? Si quieres participar en esta licitación, envía un correo a cl.ksb@ksb.com solicitando las bases. Así podemos mantener un registro de las agencias interesadas y enviarte toda la documentación detallada.`;
+
+EJEMPLOS.ksb.t = KSB_TEXTO; EJEMPLOS.schopdog.t = SCHOPDOG_TEXTO;
+
+/* ---------- Utilidades ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const nf = (n, d=0) => new Intl.NumberFormat("es-CL",{maximumFractionDigits:d, minimumFractionDigits:0}).format(n);
+let paisSel = "TODOS", servSel = null;
+
+function hoy(){ const d=new Date(); d.setHours(0,0,0,0); return d; }
+function diasRestantes(iso){ if(!iso) return null; const c=new Date(iso+"T00:00:00"); return Math.round((c-hoy())/864e5); }
+function fechaCorta(iso){ if(!iso) return "—"; const [y,m,d]=iso.split("-").map(Number); return `${d} ${MES_CORTO[m-1]} ${y}`; }
+
+function mensual(p){
+  if(!p || !p.monto) return null;
+  if(p.periodo==="año") return p.monto/12;
+  if(p.periodo==="proyecto") return p.monto/(p.meses||1);
+  return p.monto;
+}
+function aUSD(monto, moneda){
+  if(monto==null) return null;
+  switch(moneda){
+    case "UF": return monto*TC.UF.clp/TC.CLP_USD;
+    case "CLP": return monto/TC.CLP_USD;
+    case "MXN": return monto/TC.MXN_USD;
+    case "COP": return monto/TC.COP_USD;
+    case "PEN": return monto/TC.PEN_USD;
+    case "ARS": return monto/TC.ARS_USD;
+    default: return monto;
+  }
+}
+function fmtMonto(monto, moneda){
+  if(monto==null) return "Sin informar";
+  if(moneda==="UF") return `${nf(monto, monto<100?1:0)} UF`;
+  if(moneda==="USD") return `US$ ${nf(monto)}`;
+  if(monto>=1e6) return `${nf(monto/1e6,1)} M ${moneda}`;
+  return `${nf(monto)} ${moneda}`;
+}
+const periodoTxt = p => p.periodo==="año" ? "/año" : p.periodo==="mes" ? "/mes" : ` por ${p.meses||"?"} meses`;
+
+function completitud(t){
+  const checks = [
+    ["Objetivo de negocio", !!t.objetivo],
+    ["Servicios requeridos", t.servicios?.length>0],
+    ["Presupuesto", !!t.presupuesto?.monto],
+    ["Fecha de cierre", !!t.cierre],
+    ["Entregables esperados", t.entregables?.length>0],
+    ["Criterios de evaluación", t.criterios?.length>0],
+    ["Cómo postular", !!(t.postular && (t.postular.tipo==="plataforma" || t.postular.valor))],
+    ["Vigencia del contrato", !!t.vigencia]
+  ];
+  const ok = checks.filter(c=>c[1]).length;
+  return {pct:Math.round(ok/checks.length*100), faltan:checks.filter(c=>!c[1]).map(c=>c[0])};
+}
+
+function estadoCierre(t){
+  const d = diasRestantes(t.cierre);
+  if(d==null) return {txt:"Sin fecha de cierre", cls:"neutral", d};
+  if(d<0) return {txt:"Cerrada", cls:"neutral", d};
+  if(d===0) return {txt:"Cierra hoy", cls:"crit", d};
+  if(d<=7) return {txt:`Cierra en ${d} día${d===1?"":"s"}`, cls:"crit", d};
+  if(d<=14) return {txt:`Quedan ${d} días`, cls:"warn", d};
+  return {txt:`Quedan ${d} días`, cls:"ok", d};
+}
+function avancePlazo(t){
+  if(!t.publicacion || !t.cierre) return 0;
+  const a=new Date(t.publicacion+"T00:00:00"), b=new Date(t.cierre+"T00:00:00"), h=hoy();
+  return Math.max(0, Math.min(100, Math.round((h-a)/(b-a)*100)));
+}
+function agenciasQueComentaron(t){ return agencias.filter(a=>(a.comento||[]).includes(t.id)); }
+function agenciasQueCalzan(t){
+  return agencias.filter(a => (a.pais===t.pais || (a.otrosPaises||[]).includes(t.pais)) && (t.certs||[]).every(c=>a.certs.includes(c)) && (!t.equipo || a.equipo>=t.equipo));
+}
+
+function toast(msg){ const el=$("#toast"); el.textContent=msg; el.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>el.hidden=true, 3200); }
+
+/* ---------- Vista: feed ---------- */
+function renderFeed(){
+  const lista = licitaciones
+    .filter(t => paisSel==="TODOS" || t.pais===paisSel)
+    .filter(t => !servSel || t.servicios.includes(servSel))
+    .sort((a,b)=> (diasRestantes(a.cierre)??999) - (diasRestantes(b.cierre)??999));
+  const abiertas = lista.filter(t=>(diasRestantes(t.cierre)??0)>=0);
+  const semana = abiertas.filter(t=>diasRestantes(t.cierre)<=7).length;
+  const usdMes = abiertas.reduce((s,t)=> s + (aUSD(mensual(t.presupuesto), t.presupuesto.moneda)||0), 0);
+
+  $("#view-feed").innerHTML = `
+    <div class="hero">
+      <div style="display:grid;gap:10px">
+        <span class="label">${PAISES[paisSel].f} ${esc(PAISES[paisSel].n)}</span>
+        <h1>Licitaciones de marketing abiertas en Latinoamérica</h1>
+        <p class="muted">Reunimos en un solo lugar las licitaciones que hoy están repartidas en LinkedIn, portales de compras y correos, con cada brief ordenado y comparable.</p>
+      </div>
+      <div class="stats" role="list">
+        <div class="stat" role="listitem"><b class="mono">${abiertas.length}</b><span class="label">Abiertas</span></div>
+        <div class="stat" role="listitem"><b class="mono">${semana}</b><span class="label">Cierran en 7 días</span></div>
+        <div class="stat" role="listitem"><b class="mono">${usdMes>=1000? "$"+nf(usdMes/1000)+"k" : "$"+nf(usdMes)}</b><span class="label">USD/mes en juego</span></div>
+      </div>
+    </div>
+    <div class="toolbar" role="group" aria-label="Filtrar por servicio">
+      <span class="label">Servicio</span>
+      <button class="chip" aria-pressed="${!servSel}" data-serv="">Todos</button>
+      ${SERVICIOS.map(s=>`<button class="chip" aria-pressed="${servSel===s}" data-serv="${esc(s)}">${esc(s)}</button>`).join("")}
+    </div>
+    ${lista.length ? `<div class="grid">${lista.map(tarjeta).join("")}</div>`
+      : `<div class="panel"><h3>No hay licitaciones con estos filtros</h3><p class="muted">Prueba con otro país o servicio, o publica una nueva licitación.</p><div><a class="btn primary" href="#publicar">Publicar licitación</a></div></div>`}
+  `;
+  $("#view-feed").querySelectorAll("[data-serv]").forEach(b=>b.onclick=()=>{ servSel=b.dataset.serv||null; renderFeed(); });
+  $("#view-feed").querySelectorAll("[data-id]").forEach(c=>c.onclick=()=>{ location.hash="licitacion-"+c.dataset.id; });
+}
+
+function tarjeta(t){
+  const e=estadoCierre(t), m=mensual(t.presupuesto), comp=completitud(t);
+  return `<button class="card" data-id="${esc(t.id)}" aria-label="Ver licitación ${esc(t.titulo)}">
+    <div class="card-head">
+      <div><div class="card-co"><span class="flag">${PAISES[t.pais].f}</span>${t.paisProbable?"?":""} ${esc(t.empresa)} · ${esc(t.industria)}</div><h3>${esc(t.titulo)}</h3></div>
+      <span class="pill ${e.cls}">${e.txt}</span>
+    </div>
+    <div class="chips">${t.servicios.map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div>
+    <div class="meter">
+      <div class="bar ${e.cls==="crit"?"crit":e.cls==="warn"?"warn":""}" aria-hidden="true"><i style="width:${avancePlazo(t)}%"></i></div>
+      <div style="display:flex;justify-content:space-between;font-size:.78rem" class="muted"><span>Publicada ${fechaCorta(t.publicacion)}</span><span>Cierre ${fechaCorta(t.cierre)}</span></div>
+    </div>
+    <div class="keyrow">
+      <div><span class="label">Por mes</span><b>${fmtMonto(m, t.presupuesto.moneda)}</b></div>
+      <div><span class="label">≈ USD</span><b>${m? "$"+nf(aUSD(m,t.presupuesto.moneda)) : "—"}</b></div>
+      <div><span class="label">Brief</span><b>${comp.pct}%</b></div>
+    </div>
+    ${t.real? `<span class="source"><span class="pill info">Real</span> ${esc(t.fuente.tipo)}${t.comentarios? ` · ${t.comentarios} comentarios`:""}${agenciasQueComentaron(t).length? ` · ${agenciasQueComentaron(t).length} agencia${agenciasQueComentaron(t).length===1?"":"s"} identificada${agenciasQueComentaron(t).length===1?"":"s"}`:""}</span>` : `<span class="source"><span class="pill neutral">Ejemplo ficticio</span></span>`}
+  </button>`;
+}
+
+/* ---------- Vista: ficha de licitación ---------- */
+function fichaHTML(t, {preview=false}={}){
+  const e=estadoCierre(t), m=mensual(t.presupuesto), comp=completitud(t);
+  const usdMes = aUSD(m, t.presupuesto.moneda);
+  const calzan = agenciasQueCalzan(t);
+  const porPersona = m && t.equipo ? m/t.equipo : null;
+  const clpMes = t.presupuesto.moneda==="UF" && m ? m*TC.UF.clp : null;
+  const alertas = [
+    ...(t.dudas||[]).map(d=>({cls:"", t:"Ambiguo", d})),
+    ...comp.faltan.map(f=>({cls:"", t:"Falta", d:f}))
+  ];
+  if(porPersona && usdMes && usdMes/t.equipo < 600) alertas.unshift({cls:"crit", t:"Presupuesto ajustado", d:`El fee equivale a unos US$ ${nf(usdMes/t.equipo)} al mes por profesional del equipo pedido (${t.equipo}+ personas). Conviene confirmar la dedicación esperada.`});
+
+  return `
+  <div class="dossier">
+    <article class="panel">
+      <div class="folio"><span>LIC-${esc(t.pais)}-${esc(t.id.toUpperCase())}</span><span>${t.real? "Fuente: "+esc(t.fuente.tipo) : preview? "Vista previa" : "Ejemplo ficticio"}</span></div>
+      <div style="display:grid;gap:8px">
+        <span class="card-co"><span class="flag">${PAISES[t.pais].f}</span> ${esc(PAISES[t.pais].n)}${t.paisProbable?" (probable)":""} · ${esc(t.empresa)} · ${esc(t.industria)}</span>
+        <h1>${esc(t.titulo)}</h1>
+        <p class="muted">${esc(t.objetivo)}</p>
+        <div class="chips">${t.servicios.map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div>
+      </div>
+      <div class="big3">
+        <div><span class="label">Presupuesto</span><b class="mono">${fmtMonto(t.presupuesto.monto, t.presupuesto.moneda)}</b><small>${t.presupuesto.monto? periodoTxt(t.presupuesto):""}</small></div>
+        <div><span class="label">Cierre</span><b class="mono">${fechaCorta(t.cierre)}</b><small><span class="pill ${e.cls}">${e.txt}</span></small></div>
+        <div><span class="label">Vigencia</span><b>${esc(t.vigencia||"—")}</b></div>
+      </div>
+      <div class="meter">
+        <div class="bar ${e.cls==="crit"?"crit":e.cls==="warn"?"warn":""}" aria-hidden="true"><i style="width:${avancePlazo(t)}%"></i></div>
+        <div style="display:flex;justify-content:space-between;font-size:.8rem" class="muted"><span>Publicada ${fechaCorta(t.publicacion)}</span><span>${avancePlazo(t)}% del plazo transcurrido</span></div>
+      </div>
+      <div class="section"><h3>Requisitos</h3><ul class="checklist">${t.requisitos.map(r=>`<li>${esc(r)}</li>`).join("") || "<li>Sin requisitos informados</li>"}</ul></div>
+      ${t.medios? `<div class="section"><h3>Inversión en medios</h3><p>${esc(t.medios)}</p></div>`:""}
+      <div class="section"><h3>Entregables</h3>${t.entregables.length? `<ul class="checklist">${t.entregables.map(r=>`<li>${esc(r)}</li>`).join("")}</ul>` : `<p class="muted">La empresa no los detalló.</p>`}</div>
+      ${t.exito?.length? `<div class="section"><h3>Cómo miden el éxito</h3><div class="chips">${t.exito.map(r=>`<span class="chip">${esc(r)}</span>`).join("")}</div></div>`:""}
+      <div class="section"><h3>Criterios de evaluación</h3>${t.criterios.length? `<div class="chips">${t.criterios.map(r=>`<span class="chip">${esc(r)}</span>`).join("")}</div>` : `<p class="muted">La empresa no los detalló.</p>`}</div>
+      <div class="section"><h3>Cómo postular</h3>
+        ${t.postular.tipo==="email" ? `
+          <p>${esc(t.postular.instruccion||"Enviar un correo a la empresa.")}</p>
+          <div class="copybox"><code id="mail-${esc(t.id)}">${esc(t.postular.valor)}</code><button class="btn" data-copy="${esc(t.postular.valor)}">Copiar correo</button></div>
+          <p class="note">Esta licitación se recolectó de una fuente externa: se postula por el canal original de la empresa.</p>`
+        : t.postular.tipo==="otro" ? `<p>${esc(t.postular.instruccion)}</p><p class="note">Esta licitación se recolectó de una fuente externa: se postula por el canal original.</p>`
+        : `<p>Se postula directamente aquí. La empresa recibe la propuesta en su panel.</p>`}
+        ${preview? "" : `<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button class="btn primary" data-interes="${esc(t.id)}">Me interesa</button>
+          <span class="muted" id="int-${esc(t.id)}">${t.interesadas? `${t.interesadas} agencia${t.interesadas===1?"":"s"} marcaron interés` : "Sé la primera agencia en marcar interés"}</span>
+        </div>`}
+      </div>
+      ${t.real? `<p class="note">Origen: ${esc(t.fuente.detalle)}.</p>`:""}
+    </article>
+
+    <aside style="display:grid;gap:20px;min-width:0">
+      <div class="panel">
+        <h3>Análisis del presupuesto</h3>
+        ${m? `<div class="rows">
+          ${t.presupuesto.periodo!=="mes"? `<div><span>Total ${t.presupuesto.periodo==="año"?"anual":"del proyecto"}</span><span>${fmtMonto(t.presupuesto.monto,t.presupuesto.moneda)}</span></div>`:""}
+          <div><span>${t.presupuesto.incluyeMedios? "Presupuesto mensual" : "Fee mensual"}</span><span>${fmtMonto(m,t.presupuesto.moneda)}</span></div>
+          ${clpMes? `<div><span>En pesos chilenos</span><span>$${nf(clpMes)}</span></div>`:""}
+          <div><span>Equivalente USD</span><span>US$ ${nf(usdMes)}</span></div>
+          ${porPersona? `<div><span>Por profesional (${t.equipo})</span><span>${fmtMonto(porPersona,t.presupuesto.moneda)} · US$ ${nf(usdMes/t.equipo)}</span></div>`:""}
+        </div>
+        ${t.presupuesto.incluyeMedios? `<p class="alert"><b>Incluye medios</b><span>El monto cubre honorarios y pauta. Si la mitad va a medios, quedan ${fmtMonto(m/2,t.presupuesto.moneda)} (US$ ${nf(usdMes/2)}) al mes para la agencia.</span></p>`:""}
+        <p class="note">Tipo de cambio referencial${t.presupuesto.moneda==="UF"? `: 1 UF = $${nf(TC.UF.clp)}`:""}. En el MVP se actualiza a diario.</p>`
+        : `<p class="muted">La empresa no informó presupuesto.</p>`}
+      </div>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3>Calidad del brief</h3><span class="pill ${comp.pct>=80?"ok":comp.pct>=60?"warn":"crit"}">${comp.pct}%</span></div>
+        <div class="bar ${comp.pct>=80?"":comp.pct>=60?"warn":"crit"}" aria-hidden="true"><i style="width:${comp.pct}%"></i></div>
+        ${alertas.length? `<div class="alerts">${alertas.map(a=>`<div class="alert ${a.cls}"><b>${esc(a.t)}</b><span>${esc(a.d)}</span></div>`).join("")}</div>` : `<p class="muted">El brief tiene toda la información clave.</p>`}
+      </div>
+      ${agenciasQueComentaron(t).length? `<div class="panel">
+        <h3>Agencias que levantaron la mano</h3>
+        <p class="muted">Respondieron en el post original. Son los primeros perfiles a invitar a la plataforma.</p>
+        <div class="chips">${agenciasQueComentaron(t).map(a=>`<span class="chip">${esc(a.n)}${a.web? " · "+esc(a.web):""}</span>`).join("")}</div>
+        ${t.comentarios? `<p class="note">${t.comentarios} comentarios en total en el post: señal de cuánta demanda hay.</p>`:""}
+      </div>`:""}
+      <div class="panel">
+        <h3>Agencias que cumplen</h3>
+        <p><b class="mono" style="font-size:1.6rem;font-family:var(--font-display)">${calzan.length}</b> <span class="muted">de ${agencias.filter(a=>a.pais===t.pais).length} agencias registradas en ${esc(PAISES[t.pais].n)} cumplen ${(t.certs||[]).length||t.equipo? "certificaciones y tamaño de equipo" : "el país (la licitación no pide certificaciones)"}.</span></p>
+        ${calzan.length? `<div class="chips">${calzan.map(a=>`<span class="chip">${esc(a.n)}</span>`).join("")}</div>`:""}
+        <p class="note">Calculado con el directorio de ejemplo. ${preview? "Al publicar con invitación filtrada, solo ellas reciben el aviso." : ""}</p>
+      </div>
+    </aside>
+  </div>`;
+}
+
+function renderDetalle(id){
+  const t = licitaciones.find(x=>x.id===id);
+  const v = $("#view-detalle");
+  if(!t){ v.innerHTML = `<a class="back" href="#feed">← Volver</a><div class="panel"><h2>No encontramos esa licitación</h2><p class="muted">Puede que se haya publicado solo en otra sesión del prototipo.</p></div>`; return; }
+  v.innerHTML = `<a class="back" href="#feed">← Todas las licitaciones</a>` + fichaHTML(t);
+  bindCopy(v);
+  const b = v.querySelector("[data-interes]");
+  if(b) b.onclick = () => { t.interesadas++; b.disabled=true; b.textContent="Interés registrado"; $("#int-"+t.id).textContent = `${t.interesadas} agencia${t.interesadas===1?"":"s"} marcaron interés`; toast("Interés registrado (solo en esta demo)"); };
+}
+
+function bindCopy(root){
+  root.querySelectorAll("[data-copy]").forEach(b=>b.onclick=async()=>{
+    try{ await navigator.clipboard.writeText(b.dataset.copy); toast("Correo copiado"); }
+    catch{ const code=b.previousElementSibling; const r=document.createRange(); r.selectNodeContents(code); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("Correo seleccionado: cópialo con Ctrl+C"); }
+  });
+}
+
+/* ---------- Extracción del brief (simula la IA del MVP) ---------- */
+function fechaDesdeTexto(s){
+  const m = s && s.match(/(\d{1,2})\s+de\s+([a-záéíóú]+)\s+(?:de(?:l)?\s+)?(\d{4})/i);
+  if(!m) return "";
+  const mes = MESES[m[2].toLowerCase()]; if(!mes) return "";
+  return `${m[3]}-${String(mes).padStart(2,"0")}-${String(m[1]).padStart(2,"0")}`;
+}
+function extraerBrief(txt){
+  const low = txt.toLowerCase();
+  const lineas = txt.split(/\n+/).map(l=>l.trim()).filter(Boolean);
+  const limpiar = l => l.replace(/^[\s✅•\-–*·]+/u,"").replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu,"").trim();
+  const r = {servicios:[], requisitos:[], entregables:[], criterios:[], dudas:[], certs:[]};
+
+  const emp = txt.match(/(?:\ben|\bpara)\s+([A-ZÁÉÍÓÚÑ][\w&.\-ÁÉÍÓÚÑáéíóúñ ]+?(?:S\.A\.(?: de C\.V\.)?|SpA|Ltda\.?|S\.A\.S\.?|S\.R\.L\.?))/);
+  r.empresa = emp ? emp[1].trim() : "";
+  const primera = limpiar(lineas[0]||"");
+  r.titulo = primera.replace(/^licitaci[oó]n abierta:?\s*/i,"").replace(/\s+(?:en|para)\s+.*$/i,"").trim() || "Nueva licitación";
+  if(r.empresa && r.titulo.toLowerCase().startsWith("agencia")) r.titulo = r.titulo + " para 2027".replace(/ para 2027/, txt.match(/20\d\d/) ? ` para ${txt.match(/durante (20\d\d)/i)?.[1]||""}`.trimEnd() : "");
+  const obj = txt.match(/(?:buscando|buscamos)\s+([^.\n]+)[.\n]/i);
+  r.objetivo = obj ? (obj[1].charAt(0).toUpperCase()+obj[1].slice(1)).replace(/,?\s*considerando.*$/i,"").replace(/[:,\s]+$/,"")+"." : "";
+  if(r.titulo.length>70){ let t=r.titulo.replace(/^[^,]{0,20},\s*/,"").replace(/^(estamos\s+)?(buscando|buscamos)\s+/i,""); t=t.charAt(0).toUpperCase()+t.slice(1); r.titulo = t.length>70 ? t.slice(0,t.lastIndexOf(" ",68))+"…" : t; }
+
+  const mapa = {"Publicidad digital":/\bsem\b|google ads|meta ads|publicidad digital|performance|paid media|campañas digitales/,"Contenidos":/contenido/,"Redes sociales":/redes sociales|social media/,"Lead generation":/lead gen|generaci[oó]n de leads|\bleads\b/,"SEO":/\bseo\b/,"Branding":/branding/,"Influencers":/influencer/,"Email / CRM":/email marketing|\bcrm\b|mailing/,"Web":/sitio web|desarrollo web|landing|p[aá]ginas web/,"Diseño":/dise[ñn]o|direcci[oó]n de arte|piezas gr[aá]ficas/,"Producción audiovisual":/audiovisual|grabaci[oó]n|videos|reels|tiktok/,"PR":/relaciones p[uú]blicas|\bpr\b/};
+  for(const [k,re] of Object.entries(mapa)) if(re.test(low)) r.servicios.push(k);
+
+  const pre = txt.match(/(\d[\d.,]*)\s*(UF|USD|US\$|CLP|MXN|COP|PEN|ARS)\s*(?:\/|al|por)?\s*(a[ñn]o|anual|mes|mensual)?/i);
+  if(pre){
+    const monto = Number(pre[1].replace(/\./g,"").replace(",","."));
+    let moneda = pre[2].toUpperCase().replace("US$","USD");
+    const per = (pre[3]||"").toLowerCase();
+    r.presupuesto = {monto, moneda, periodo: /a[ñn]o|anual/.test(per) ? "año" : /mes/.test(per) ? "mes" : "proyecto", meses:12};
+  } else r.presupuesto = {monto:null, moneda:"USD", periodo:"mes"};
+
+  const pub = txt.match(/publicaci[oó]n[^:\n]*:\s*([^\n]+)/i);
+  const cie = txt.match(/(?:plazo[^:\n]*|cierre|fecha l[ií]mite|recepci[oó]n de propuestas)[^:\n]*:\s*([^\n]+)/i);
+  r.publicacion = fechaDesdeTexto(pub?.[1]) || new Date().toISOString().slice(0,10);
+  r.cierre = fechaDesdeTexto(cie?.[1]);
+  r.vigencia = limpiar(txt.match(/vigencia[^:\n]*:\s*([^\n]+)/i)?.[1]||"");
+  const eq = txt.match(/equipo[^\n]*?(\d+)\s*\+?\s*profesionales/i);
+  r.equipo = eq ? Number(eq[1]) : null;
+  const med = lineas.find(l=>(/medios|pauta/i.test(l) && /\d/.test(l)) || /inversi[oó]n (publicitaria|en medios)/i.test(l));
+  r.medios = med ? limpiar(med) : "";
+
+  const reqRe = /experiencia|certificaci|equipo|roi|referencias|capacidad|kpi|portafolio|partner/i;
+  r.requisitos = lineas.filter(l=> l.length<140 && reqRe.test(l) && !/^¿|detalles|requisitos clave/i.test(limpiar(l)) && !/medios|pauta/i.test(l)).map(limpiar);
+  if(/google partner/i.test(txt)) r.certs.push("Google Partner");
+  if(/meta business partner/i.test(txt)) r.certs.push("Meta Business Partner");
+  if(/hubspot/i.test(txt)) r.certs.push("HubSpot");
+
+  // Listas numeradas o con guiones: cada línea de detalle se vuelve un entregable
+  const esTitulo = l => /^\d+[.)]\s/.test(l);
+  if(lineas.some(esTitulo) || lineas.filter(l=>/^[-•]/.test(l)).length>=3){
+    let dentro=false;
+    for(const l of lineas){
+      if(esTitulo(l) || /^[-•]/.test(l)) dentro=true;
+      if(!dentro) continue;
+      if(/@|interesad|escr[ií]beme|muchas gracias|^#/i.test(l)) break;
+      if(esTitulo(l)) continue;
+      const c = limpiar(l); if(c && c.length<240 && !r.requisitos.includes(c) && c!==r.medios) r.entregables.push(c);
+    }
+  }
+  if(!r.objetivo){ const o = txt.match(/buscando\s+([^:\n]+)/i); if(o) r.objetivo = o[1].charAt(0).toUpperCase()+o[1].slice(1).replace(/,?\s*considerando.*$/i,"")+"."; }
+  const mail = txt.match(/[\w.+-]+@[\w-]+\.[\w.-]+/);
+  r.postular = mail ? {tipo:"email", valor:mail[0], instruccion:"Enviar un correo a la empresa solicitando las bases."} : {tipo:"plataforma"};
+
+  r.pais = /\bUF\b|chile|\.cl\b/i.test(txt) ? "CL" : /m[eé]xico|\bMXN\b/i.test(txt) ? "MX" : /colombia|\bCOP\b/i.test(txt) ? "CO" : /per[uú]\b|\bPEN\b|soles/i.test(txt) ? "PE" : /argentina|\bARS\b/i.test(txt) ? "AR" : "CL";
+  r.industria = /industrial|b2b/i.test(txt) ? "Industrial / B2B" : /retail/i.test(txt) ? "Retail" : /educaci/i.test(txt) ? "Educación" : /restaurant|gastron/i.test(txt) ? "Gastronomía" : /minero|miner[ií]a/i.test(txt) ? "Minería" : "";
+  if(!r.presupuesto.monto) r.presupuesto.moneda = {CL:"CLP",MX:"MXN",CO:"COP",PE:"PEN",AR:"USD"}[r.pais];
+  if(r.medios && r.presupuesto.monto) r.dudas.push("No queda claro si el presupuesto incluye la inversión en medios o si se paga aparte.");
+  return r;
+}
+
+/* ---------- Vista: publicar (3 pasos) ---------- */
+let paso = 1, metodo = "texto", borrador = null;
+
+function renderPublicar(){
+  const v = $("#view-publicar");
+  const pasos = ["Cómo empezar","Revisar el brief","Vista previa y publicación"];
+  v.innerHTML = `
+    <div style="display:grid;gap:10px">
+      <span class="label">Para empresas</span>
+      <h1>Publica tu licitación en minutos</h1>
+      <p class="muted" style="max-width:62ch">Sube tu documento o pega el aviso que ya publicaste. Armamos el brief, te avisamos qué falta y lo enviamos a las agencias que cumplen tus requisitos.</p>
+    </div>
+    <ol class="steps">${pasos.map((p,i)=>`<li ${i+1===paso?'aria-current="step"':""} class="${i+1<paso?"done":""}"><span>${i+1<paso?"✓":i+1}</span>${p}</li>`).join("")}</ol>
+    <div id="paso"></div>`;
+  if(paso===1) paso1(); else if(paso===2) paso2(); else paso3();
+}
+
+function paso1(){
+  const box = $("#paso");
+  const ic = {
+    archivo:`<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 17v-6M9 14l3-3 3 3"/></svg>`,
+    texto:`<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>`,
+    cero:`<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>`
+  };
+  box.innerHTML = `
+    <div class="choices" role="group" aria-label="Cómo quieres empezar">
+      <button class="choice" data-m="archivo" aria-pressed="${metodo==="archivo"}">${ic.archivo}<h3>Subir documento</h3><span class="muted">Bases o brief en PDF o Word.</span></button>
+      <button class="choice" data-m="texto" aria-pressed="${metodo==="texto"}">${ic.texto}<h3>Pegar texto o aviso</h3><span class="muted">Copia el post de LinkedIn o un correo.</span></button>
+      <button class="choice" data-m="cero" aria-pressed="${metodo==="cero"}">${ic.cero}<h3>Completar desde cero</h3><span class="muted">Te guiamos campo por campo.</span></button>
+    </div>
+    <div class="panel" id="entrada"></div>`;
+  box.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{ metodo=b.dataset.m; paso1(); });
+  const e = $("#entrada");
+  if(metodo==="texto"){
+    e.innerHTML = `
+      <div class="field"><label for="txt-aviso">Texto del aviso o link</label>
+        <textarea id="txt-aviso" rows="12" placeholder="Pega aquí el texto del aviso de licitación">${esc(KSB_TEXTO)}</textarea>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="hint">Cargar un aviso real de ejemplo:</span>${Object.entries(EJEMPLOS).map(([k,e])=>`<button type="button" class="chip" style="cursor:pointer" data-ej="${k}">${esc(e.n)}</button>`).join("")}</div></div>
+      <div class="actions"><span></span><button class="btn primary" id="go2">Armar brief →</button></div>`;
+    e.querySelectorAll("[data-ej]").forEach(b=>b.onclick=()=>{ $("#txt-aviso").value = EJEMPLOS[b.dataset.ej].t; });
+    $("#go2").onclick = ()=>{ const t=$("#txt-aviso").value.trim(); if(!t){ toast("Pega el texto del aviso para continuar"); return; } borrador = extraerBrief(t); paso=2; renderPublicar(); };
+  } else if(metodo==="archivo"){
+    e.innerHTML = `
+      <label class="drop" for="file-brief"><b>Arrastra o elige un archivo</b><span class="muted">PDF o DOCX, hasta 20 MB</span></label>
+      <input type="file" id="file-brief" accept=".pdf,.doc,.docx" hidden>
+      <p class="note" id="file-msg">En el MVP la IA lee el archivo y llena el brief. En este prototipo, al elegir un archivo usamos el aviso de ejemplo de KSB.</p>
+      <div class="actions"><span></span><button class="btn primary" id="go2" disabled>Armar brief →</button></div>`;
+    $("#file-brief").onchange = ev => { const f=ev.target.files[0]; if(f){ $("#file-msg").textContent=`Archivo listo: ${f.name}. En el prototipo usaremos el aviso de ejemplo.`; $("#go2").disabled=false; } };
+    $("#go2").onclick = ()=>{ borrador = extraerBrief(KSB_TEXTO); paso=2; renderPublicar(); };
+  } else {
+    e.innerHTML = `<p>Completa los campos en el siguiente paso. Te marcaremos lo que falta para que las agencias puedan cotizar bien.</p>
+      <div class="actions"><span></span><button class="btn primary" id="go2">Empezar →</button></div>`;
+    $("#go2").onclick = ()=>{ borrador = {empresa:"",titulo:"",objetivo:"",industria:"",pais:paisSel==="TODOS"?"CL":paisSel,servicios:[],presupuesto:{monto:null,moneda:"USD",periodo:"mes"},medios:"",publicacion:new Date().toISOString().slice(0,10),cierre:"",vigencia:"",equipo:null,requisitos:[],entregables:[],criterios:[],dudas:[],certs:[],postular:{tipo:"plataforma"}}; paso=2; renderPublicar(); };
+  }
+}
+
+function paso2(){
+  const b = borrador;
+  const miss = (cond) => cond ? "" : " missing";
+  $("#paso").innerHTML = `
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">
+        <h2>Revisa y completa el brief</h2>
+        <span class="pill info">${metodo==="cero"?"Formulario en blanco":"Campos llenados automáticamente"}</span>
+      </div>
+      <p class="note">Los campos en amarillo están vacíos. Las agencias cotizan mejor cuando están completos.</p>
+      <form class="form" id="f-brief" novalidate>
+        <div class="field${miss(b.empresa)}"><label for="b-empresa">Empresa</label><input id="b-empresa" value="${esc(b.empresa)}" placeholder="Nombre de la empresa"></div>
+        <div class="field"><label for="b-pais">País</label><select id="b-pais">${Object.entries(PAISES).filter(([k])=>k!=="TODOS").map(([k,p])=>`<option value="${k}" ${k===b.pais?"selected":""}>${p.f} ${p.n}</option>`).join("")}</select></div>
+        <div class="field${miss(b.titulo)}"><label for="b-titulo">Título de la licitación</label><input id="b-titulo" value="${esc(b.titulo)}"></div>
+        <div class="field${miss(b.industria)}"><label for="b-industria">Industria</label><input id="b-industria" value="${esc(b.industria)}" placeholder="Ej.: Retail, Industrial / B2B"></div>
+        <div class="field full${miss(b.objetivo)}"><label for="b-objetivo">Objetivo de negocio</label><textarea id="b-objetivo" rows="2" placeholder="¿Qué resultado esperas lograr?">${esc(b.objetivo)}</textarea></div>
+        <div class="field full"><span class="label" style="text-transform:none;letter-spacing:0;font-size:.88rem;color:var(--ink)">Servicios requeridos</span>
+          <div class="chips toggle-chips" id="b-serv">${SERVICIOS.map(s=>`<button type="button" class="chip" aria-pressed="${b.servicios.includes(s)}" data-s="${esc(s)}">${esc(s)}</button>`).join("")}</div></div>
+        <div class="field full${miss(b.presupuesto.monto)}"><label for="b-monto">Presupuesto (fee de agencia)</label>
+          <div class="inline">
+            <input id="b-monto" type="number" min="0" step="any" value="${b.presupuesto.monto??""}" placeholder="Monto">
+            <select id="b-moneda" aria-label="Moneda">${["UF","CLP","USD","MXN","COP","PEN","ARS"].map(m=>`<option ${m===b.presupuesto.moneda?"selected":""}>${m}</option>`).join("")}</select>
+            <select id="b-periodo" aria-label="Periodo">${[["mes","Mensual"],["año","Anual"],["proyecto","Por proyecto"]].map(([k,n])=>`<option value="${k}" ${k===b.presupuesto.periodo?"selected":""}>${n}</option>`).join("")}</select>
+          </div></div>
+        <div class="field full"><label for="b-medios">Inversión en medios</label><input id="b-medios" value="${esc(b.medios)}" placeholder="Ej.: pauta aparte, 200 UF/mes"><span class="hint">Aclara si la pauta está incluida en el fee o se paga aparte.</span></div>
+        <div class="field"><label for="b-pub">Fecha de publicación</label><input id="b-pub" type="date" value="${esc(b.publicacion)}"></div>
+        <div class="field${miss(b.cierre)}"><label for="b-cierre">Cierre de postulaciones</label><input id="b-cierre" type="date" value="${esc(b.cierre)}"></div>
+        <div class="field${miss(b.vigencia)}"><label for="b-vig">Vigencia del contrato</label><input id="b-vig" value="${esc(b.vigencia)}" placeholder="Ej.: 12 meses"></div>
+        <div class="field"><label for="b-equipo">Equipo mínimo (personas)</label><input id="b-equipo" type="number" min="0" value="${b.equipo??""}"></div>
+        <div class="field full${miss(b.requisitos.length)}"><label for="b-req">Requisitos (uno por línea)</label><textarea id="b-req" rows="5">${esc(b.requisitos.join("\n"))}</textarea></div>
+        <div class="field${miss(b.entregables.length)}"><label for="b-ent">Entregables esperados (uno por línea)</label><textarea id="b-ent" rows="4" placeholder="Ej.: Plan de medios mensual">${esc(b.entregables.join("\n"))}</textarea></div>
+        <div class="field${miss(b.criterios.length)}"><label for="b-cri">Criterios de evaluación (uno por línea)</label><textarea id="b-cri" rows="4" placeholder="Ej.: Propuesta 40%">${esc(b.criterios.join("\n"))}</textarea></div>
+        <div class="field full"><label for="b-contacto">Correo para postular (opcional)</label><input id="b-contacto" type="email" value="${esc(b.postular.valor||"")}" placeholder="Vacío: las agencias postulan en la plataforma"></div>
+      </form>
+      <div class="actions"><button class="btn ghost" id="back1">← Volver</button><button class="btn primary" id="go3">Ver vista previa →</button></div>
+    </div>`;
+  $("#b-serv").querySelectorAll("[data-s]").forEach(c=>c.onclick=()=>c.setAttribute("aria-pressed", c.getAttribute("aria-pressed")==="true"?"false":"true"));
+  $("#back1").onclick = ()=>{ paso=1; renderPublicar(); };
+  $("#go3").onclick = ()=>{ leerFormulario(); paso=3; renderPublicar(); };
+}
+
+function leerFormulario(){
+  const lines = id => $(id).value.split("\n").map(s=>s.trim()).filter(Boolean);
+  const b = borrador;
+  b.empresa=$("#b-empresa").value.trim()||"Empresa sin nombre"; b.pais=$("#b-pais").value; b.titulo=$("#b-titulo").value.trim()||"Nueva licitación";
+  b.industria=$("#b-industria").value.trim()||"Sin industria"; b.objetivo=$("#b-objetivo").value.trim();
+  b.servicios=[...$("#b-serv").querySelectorAll('[aria-pressed="true"]')].map(c=>c.dataset.s);
+  const monto = parseFloat($("#b-monto").value);
+  b.presupuesto={monto:isNaN(monto)?null:monto, moneda:$("#b-moneda").value, periodo:$("#b-periodo").value, meses:12};
+  b.medios=$("#b-medios").value.trim(); b.publicacion=$("#b-pub").value; b.cierre=$("#b-cierre").value; b.vigencia=$("#b-vig").value.trim();
+  const eq=parseInt($("#b-equipo").value,10); b.equipo=isNaN(eq)?null:eq;
+  b.requisitos=lines("#b-req"); b.entregables=lines("#b-ent"); b.criterios=lines("#b-cri");
+  const mail=$("#b-contacto").value.trim();
+  b.postular = mail ? {tipo:"email", valor:mail, instruccion:"Enviar un correo a la empresa solicitando las bases."} : {tipo:"plataforma"};
+  b.id = b.id || ("nueva-"+Date.now().toString(36));
+  b.real=false; b.fuente={tipo:"Publicada por la empresa", detalle:""}; b.interesadas=0;
+}
+
+function paso3(){
+  const t = borrador;
+  const calzan = agenciasQueCalzan(t).length, todas = agencias.filter(a=>a.pais===t.pais).length;
+  $("#paso").innerHTML = `
+    ${fichaHTML(t,{preview:true})}
+    <div class="panel">
+      <h2>¿A quién invitamos?</h2>
+      <div class="radio-row" role="radiogroup" aria-label="Tipo de invitación">
+        <label><input type="radio" name="inv" id="inv-abierta" value="abierta" checked> Invitación abierta · ${todas} agencias en ${esc(PAISES[t.pais].n)}</label>
+        <label><input type="radio" name="inv" id="inv-filtrada" value="filtrada"> Solo las que cumplen requisitos · ${calzan} agencias</label>
+      </div>
+      <div class="actions"><button class="btn ghost" id="back2">← Editar brief</button><button class="btn primary" id="publicar-btn">Publicar licitación</button></div>
+    </div>`;
+  bindCopy($("#paso"));
+  $("#back2").onclick = ()=>{ paso=2; renderPublicar(); };
+  $("#publicar-btn").onclick = ()=>{
+    const filtrada = $("#inv-filtrada").checked;
+    licitaciones.unshift({...t});
+    const n = filtrada ? calzan : todas;
+    toast(`Publicada. ${n} agencia${n===1?"":"s"} recibirían la invitación (demo, no se envía nada)`);
+    const id = t.id; borrador=null; paso=1;
+    location.hash = "licitacion-"+id;
+  };
+}
+
+/* ---------- Vista: agencias ---------- */
+function renderAgencias(){
+  const lista = agencias.filter(a=> paisSel==="TODOS" || a.pais===paisSel);
+  const fuentes = [
+    ["Comentario en licitación","Agencias que responden o son recomendadas en los posts de licitaciones. Ya levantaron la mano."],
+    ["Directorio de partners","Google Partners, Meta Business Partners y HubSpot. Permiten filtrar por certificación."],
+    ["Gremio","Asociaciones de agencias de cada país."],
+    ["Registro propio","La agencia crea o reclama su perfil y lo completa."]
+  ];
+  $("#view-agencias").innerHTML = `
+    <div style="display:grid;gap:10px">
+      <span class="label">${PAISES[paisSel].f} ${esc(PAISES[paisSel].n)}</span>
+      <h1>Directorio de agencias</h1>
+      <p class="muted" style="max-width:62ch">Cada agencia tiene país, servicios, certificaciones y tamaño de equipo. Con eso calculamos qué agencias cumplen cada licitación.</p>
+    </div>
+    <div class="funnel">${fuentes.map(([n,d])=>`<div class="panel"><b>${n}</b><span class="note">${d}</span><span class="label">${agencias.filter(a=>a.fuente===n || (n==="Comentario en licitación" && a.fuente==="Recomendada en comentarios")).length} en el directorio</span></div>`).join("")}</div>
+    <div class="grid">${lista.map(a=>`
+      <div class="agency">
+        <div class="agency-head"><div class="avatar" aria-hidden="true">${esc(a.n.split(/\s+/).map(w=>w[0]).slice(0,2).join(""))}</div>
+          <div style="min-width:0"><h3>${esc(a.n)}</h3><span class="muted" style="font-size:.85rem">${PAISES[a.pais].f} ${esc(PAISES[a.pais].n)}${(a.otrosPaises||[]).map(k=>" "+PAISES[k].f).join("")} · ${a.equipo? a.equipo+" personas" : "equipo sin informar"}${a.web? " · "+esc(a.web):""}</span></div></div>
+        <div class="chips">${a.servicios.length? a.servicios.map(s=>`<span class="chip">${esc(s)}</span>`).join("") : `<span class="note">Servicios por completar cuando reclame su perfil</span>`}</div>
+        ${(a.comento||[]).length? `<span class="note">Interesada en: ${a.comento.map(id=>esc(licitaciones.find(t=>t.id===id)?.empresa||id)).join(", ")}</span>`:""}
+        <div class="chips">${a.certs.length? a.certs.map(c=>`<span class="pill ok">${esc(c)}</span>`).join("") : `<span class="pill neutral">Sin certificaciones informadas</span>`}</div>
+        <span class="source">${a.real? `<span class="pill info">Real</span>` : `<span class="pill neutral">Ejemplo ficticio</span>`} ${esc(a.fuente)}</span>
+      </div>`).join("") || `<div class="panel"><p class="muted">Aún no hay agencias en este país.</p></div>`}
+    </div>
+    <div class="panel">
+      <h2>Registra tu agencia</h2>
+      <p class="muted">Recibe las licitaciones de tu país que calzan con tus servicios.</p>
+      <form class="form" id="f-ag" novalidate>
+        <div class="field"><label for="a-nombre">Nombre de la agencia</label><input id="a-nombre" required></div>
+        <div class="field"><label for="a-pais">País</label><select id="a-pais">${Object.entries(PAISES).filter(([k])=>k!=="TODOS").map(([k,p])=>`<option value="${k}" ${k===paisSel?"selected":""}>${p.f} ${p.n}</option>`).join("")}</select></div>
+        <div class="field"><label for="a-web">Sitio web</label><input id="a-web" type="url" placeholder="https://"></div>
+        <div class="field"><label for="a-equipo">Tamaño del equipo</label><input id="a-equipo" type="number" min="1" value="5"></div>
+        <div class="field full"><span class="label" style="text-transform:none;letter-spacing:0;font-size:.88rem;color:var(--ink)">Servicios</span>
+          <div class="chips toggle-chips" id="a-serv">${SERVICIOS.map(s=>`<button type="button" class="chip" aria-pressed="false" data-s="${esc(s)}">${esc(s)}</button>`).join("")}</div></div>
+        <div class="field full"><span class="label" style="text-transform:none;letter-spacing:0;font-size:.88rem;color:var(--ink)">Certificaciones</span>
+          <div class="chips toggle-chips" id="a-cert">${["Google Partner","Meta Business Partner","HubSpot"].map(s=>`<button type="button" class="chip" aria-pressed="false" data-s="${esc(s)}">${esc(s)}</button>`).join("")}</div></div>
+        <div class="field full"><div class="actions"><span class="note">En el MVP se verifica el correo y las certificaciones.</span><button class="btn primary" type="submit">Registrar agencia</button></div></div>
+      </form>
+    </div>`;
+  ["#a-serv","#a-cert"].forEach(id=>$(id).querySelectorAll("[data-s]").forEach(c=>c.onclick=()=>c.setAttribute("aria-pressed", c.getAttribute("aria-pressed")==="true"?"false":"true")));
+  $("#f-ag").onsubmit = ev => {
+    ev.preventDefault();
+    const n=$("#a-nombre").value.trim();
+    if(!n){ toast("Escribe el nombre de la agencia"); $("#a-nombre").focus(); return; }
+    const pick = id => [...$(id).querySelectorAll('[aria-pressed="true"]')].map(c=>c.dataset.s);
+    agencias.unshift({n, pais:$("#a-pais").value, servicios:pick("#a-serv"), certs:pick("#a-cert"), equipo:parseInt($("#a-equipo").value,10)||1, fuente:"Registro propio"});
+    toast(`${n} quedó registrada (solo en esta demo)`);
+    renderAgencias();
+  };
+}
+
+/* ---------- Navegación ---------- */
+function route(){
+  const h = location.hash.replace("#","") || "feed";
+  const views = {feed:"#view-feed", publicar:"#view-publicar", agencias:"#view-agencias"};
+  document.querySelectorAll(".view").forEach(v=>v.hidden=true);
+  let navKey = h;
+  if(h.startsWith("licitacion-")){ $("#view-detalle").hidden=false; renderDetalle(h.slice(11)); navKey="feed"; }
+  else if(views[h]){ $(views[h]).hidden=false; if(h==="feed") renderFeed(); if(h==="publicar") renderPublicar(); if(h==="agencias") renderAgencias(); }
+  else { $("#view-feed").hidden=false; renderFeed(); navKey="feed"; }
+  document.querySelectorAll("[data-nav]").forEach(a=>a.toggleAttribute("aria-current", a.dataset.nav===navKey) || a.dataset.nav===navKey && a.setAttribute("aria-current","page"));
+  document.querySelectorAll("[data-nav]").forEach(a=> a.dataset.nav===navKey ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
+  window.scrollTo(0,0);
+}
+
+$("#pais").innerHTML = Object.entries(PAISES).map(([k,p])=>`<option value="${k}">${p.f} ${p.n}</option>`).join("");
+$("#pais").onchange = e => { paisSel=e.target.value; route(); };
+window.addEventListener("hashchange", route);
+route();
+</script>

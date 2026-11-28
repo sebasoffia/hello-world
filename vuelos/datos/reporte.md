@@ -1,4 +1,4 @@
-# Vuelos AEP ⇄ SCL — consulta del 2026-11-27
+# Vuelos AEP ⇄ SCL — consulta del 2026-11-28
 
 Grupo: 2 adultos + 1 niño(s). Precios en USD para **todo el grupo**, vuelos directos, con carry-on incluido (carry_on=1, despachado=0).
 
@@ -6,50 +6,41 @@ Grupo: 2 adultos + 1 niño(s). Precios en USD para **todo el grupo**, vuelos dir
 
 | # | Ida | Vuelta | Días | Total USD | Por persona |
 |---|---|---|---|---|---|
-| 1 | 2026-12-17 21:00 (LATAM) | 2027-01-24 10:15 (Aerolineas Argentinas) | 38 | 718 | 239 |
-| 2 | 2026-12-15 17:55 (Aerolineas Argentinas) | 2027-01-24 10:15 (Aerolineas Argentinas) | 40 | 725 | 241 |
-| 3 | 2026-12-16 07:00 (Aerolineas Argentinas) | 2027-01-24 10:15 (Aerolineas Argentinas) | 39 | 725 | 241 |
-| 4 | 2026-12-14 12:20 (Aerolineas Argentinas) | 2027-01-24 10:15 (Aerolineas Argentinas) | 41 | 896 | 298 |
-| 5 | 2026-12-22 07:00 (Aerolineas Argentinas) | 2027-01-24 10:15 (Aerolineas Argentinas) | 33 | 896 | 298 |
-| 6 | 2026-12-19 15:55 (Aerolineas Argentinas) | 2027-01-24 10:15 (Aerolineas Argentinas) | 36 | 965 | 321 |
-| 7 | 2026-12-20 07:00 (Aerolineas Argentinas) | 2027-01-24 10:15 (Aerolineas Argentinas) | 35 | 965 | 321 |
-| 8 | 2026-12-21 12:20 (Aerolineas Argentinas) | 2027-01-24 10:15 (Aerolineas Argentinas) | 34 | 1,045 | 348 |
+| 1 | 2026-12-15 07:00 (Aerolineas Argentinas) | 2027-02-04 10:15 (Aerolineas Argentinas) | 51 | 728 | 242 |
+| 2 | 2026-12-14 12:20 (Aerolineas Argentinas) | 2027-02-04 10:15 (Aerolineas Argentinas) | 52 | 899 | 299 |
+| 3 | 2026-12-20 18:35 (Aerolineas Argentinas) | 2027-02-04 10:15 (Aerolineas Argentinas) | 46 | 969 | 323 |
+| 4 | 2026-12-19 07:00 (Aerolineas Argentinas) | 2027-02-04 10:15 (Aerolineas Argentinas) | 47 | 1,050 | 350 |
+| 5 | 2026-12-21 12:20 (Aerolineas Argentinas) | 2027-02-04 10:15 (Aerolineas Argentinas) | 45 | 1,050 | 350 |
 
 ## Precio más bajo por día — ida
 
 | Fecha | Aerolínea | Hora | Total USD | vs. ayer |
 |---|---|---|---|---|
-| 2026-12-14 | Aerolineas Argentinas | 12:20 | 613 | -0% |
-| 2026-12-15 | Aerolineas Argentinas | 17:55 | 442 | -1% |
-| 2026-12-16 | Aerolineas Argentinas | 07:00 | 442 | — |
-| 2026-12-17 | LATAM | 21:00 | 435 | — |
-| 2026-12-19 | Aerolineas Argentinas | 15:55 | 682 | -1% |
-| 2026-12-20 | Aerolineas Argentinas | 07:00 | 682 | -11% |
-| 2026-12-21 | Aerolineas Argentinas | 12:20 | 762 | +24% |
-| 2026-12-22 | Aerolineas Argentinas | 07:00 | 613 | -12% |
+| 2026-12-14 | Aerolineas Argentinas | 12:20 | 616 | +0% |
+| 2026-12-15 | Aerolineas Argentinas | 07:00 | 445 | +1% |
+| 2026-12-19 | Aerolineas Argentinas | 07:00 | 767 | +12% |
+| 2026-12-20 | Aerolineas Argentinas | 18:35 | 686 | +1% |
+| 2026-12-21 | Aerolineas Argentinas | 12:20 | 767 | +1% |
 
 ## Precio más bajo por día — vuelta
 
 | Fecha | Aerolínea | Hora | Total USD | vs. ayer |
 |---|---|---|---|---|
-| 2027-01-22 | JetSMART | 07:23 | 293 | -5% |
-| 2027-01-23 | LATAM | 17:28 | 332 | +2% |
-| 2027-01-24 | Aerolineas Argentinas | 10:15 | 283 | — |
-| 2027-01-25 | Aerolineas Argentinas | 21:50 | 314 | — |
-| 2027-01-26 | JetSMART | 07:23 | 293 | +6% |
-| 2027-01-27 | Aerolineas Argentinas | 10:15 | 283 | +2% |
-| 2027-01-28 | JetSMART | 07:23 | 293 | — |
-| 2027-01-30 | Aerolineas Argentinas | 10:15 | 457 | +2% |
-| 2027-01-31 | Aerolineas Argentinas | 10:15 | 457 | -23% |
-| 2027-02-02 | Aerolineas Argentinas | 21:15 | 314 | +2% |
-| 2027-02-03 | Aerolineas Argentinas | 10:15 | 349 | -10% |
-| 2027-02-05 | Aerolineas Argentinas | 21:50 | 314 | -8% |
+| 2027-01-24 | JetSMART | 07:23 | 293 | +4% |
+| 2027-01-25 | Aerolineas Argentinas | 21:50 | 315 | +0% |
+| 2027-01-26 | Aerolineas Argentinas | 10:15 | 315 | +8% |
+| 2027-01-27 | Aerolineas Argentinas | 21:50 | 315 | +11% |
+| 2027-01-28 | Aerolineas Argentinas | 10:15 | 315 | +8% |
+| 2027-01-29 | JetSMART | 07:23 | 396 | — |
+| 2027-01-31 | Aerolineas Argentinas | 10:15 | 458 | +0% |
+| 2027-02-01 | Aerolineas Argentinas | 21:50 | 400 | — |
+| 2027-02-02 | Aerolineas Argentinas | 21:15 | 315 | +0% |
+| 2027-02-03 | Aerolineas Argentinas | 10:15 | 350 | +0% |
+| 2027-02-04 | Aerolineas Argentinas | 10:15 | 283 | — |
 
 ## Alertas de baja de precio
 
-- 🔻 ida 2026-12-20: bajó 11% (767 → 682 USD)
-- 🔻 ida 2026-12-22: bajó 12% (697 → 613 USD)
-- 🔻 vuelta 2027-01-31: bajó 23% (591 → 457 USD)
+Sin bajas relevantes respecto de la consulta anterior.
 
 ## Notas
 
